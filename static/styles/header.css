@@ -1,0 +1,16 @@
+.header .nav-list{
+    list-style-type: none;
+    text-align: center;
+}
+
+.header .nav-list .nav-link{
+    text-decoration: none;
+    display: inline-block;
+    padding: 18px;
+    color: white;
+    font-size: 20px;
+}
+
+.header .nav-list .nav-link:hover{
+    color: orange;
+}
