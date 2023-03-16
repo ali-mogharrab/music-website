@@ -1,10 +1,16 @@
 from django.contrib import messages
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.shortcuts import redirect, render
 from django.views import View
 
 from .forms import CustomUserCreationForm, ProfileForm
 
+
+class LogoutUser(View):
+    def get(self, request):
+        logout(request)
+        messages.info(request, 'User was logged out!')
+        return redirect('index')
 
 class RegisterUser(View):
     def get(self, request):
