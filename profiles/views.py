@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.views import View
 
-from .forms import CustomUserCreationForm, ProfileForm
+from .forms import ArtistForm, CustomUserCreationForm, ProfileForm
 
 
 class LoginUser(View):
@@ -32,8 +32,7 @@ class LoginUser(View):
         
         else:
             messages.error(request, 'Username or Password is incorrect!')
-
-        return redirect('login')
+            return redirect('login')
 
 
 class LogoutUser(View):
@@ -60,7 +59,7 @@ class RegisterUser(View):
 
             login(request, user)
 
-            return redirect('edit-profile')
+            return redirect('edit_profile')
 
         else:
             messages.error(request, 'An error occurred during registration')
@@ -79,9 +78,33 @@ class EditProfile(View):
         form = ProfileForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
+
+            is_artist = form.cleaned_data['is_artist']
+            if is_artist:
+                return redirect('edit_artist')
+
             messages.success(request, 'Profile updated successfully')
             return redirect('index')
         
         else:
             messages.error(request, 'An error occurred during editing profile')
+            return redirect('edit_profile')
 
+
+class EditArtist(View):
+    def get(self, request):
+        artist = request.user.profile.artist
+        form = ArtistForm(instance=artist)
+        context = {'form': form}
+        return render(request, 'profiles/artist_form.html', context=context)
+    
+    def post(self, request):
+        artist = request.user.profile.artist
+        form = ArtistForm(request.POST, instance=artist)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Artist object updated successfully')
+            return redirect('index')
+        else:
+            messages.error(request, 'An error occurred during editing artist')
+            return redirect('edit_artist')
