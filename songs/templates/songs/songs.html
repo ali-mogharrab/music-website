@@ -5,7 +5,7 @@
 {% block content %}
 
     {% if request.user.profile.is_artist %}
-        <a href="">Add Song</a>
+        <a href="#" class="add-song">Add Song</a>
     {% endif %}
 
     {{songs}}
