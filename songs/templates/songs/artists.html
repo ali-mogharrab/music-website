@@ -4,6 +4,9 @@
 
 {% block content %}
 
-    {{artists}}
+    {% for artist in artists %}
+        <a href="{% url 'artist' artist.id %}" style="color: white;">{{artist}}</a>
+        <br>
+    {% endfor %}
 
 {% endblock content %}

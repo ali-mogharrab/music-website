@@ -23,3 +23,9 @@ class Artists(View):
         context = {'artists': artists}
         return render(request, 'songs/artists.html', context=context)
 
+
+class GetArtist(View):
+    def get(self, request, pk):
+        artist = Artist.objects.get(id=pk)
+        context = {'artist': artist}
+        return render(request, 'songs/artist.html', context=context)

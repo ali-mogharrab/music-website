@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.Index.as_view(), name='index'),
     path('songs/', views.Songs.as_view(), name='songs'),
     path('artists/', views.Artists.as_view(), name='artists'),
+    path('artist/<str:pk>/', views.GetArtist.as_view(), name='artist'),
 ]
