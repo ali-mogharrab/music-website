@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Songs{% endblock title %}
+
+{% block content %}
+
+    {% if request.user.profile.is_artist %}
+        <a href="">Add Song</a>
+    {% endif %}
+
+    {{songs}}
+
+{% endblock content %}
