@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 
-from .models import Artist, Song
+from .models import Album, Artist, Song
 
 
 class Index(View):
@@ -29,3 +29,17 @@ class GetArtist(View):
         artist = Artist.objects.get(id=pk)
         context = {'artist': artist}
         return render(request, 'songs/artist.html', context=context)
+
+
+class Albums(View):
+    def get(self, request):
+        albums = Album.objects.all()
+        context = {'albums': albums}
+        return render(request, 'songs/albums.html', context=context)
+
+
+class GetAlbum(View):
+    def get(self, request, pk):
+        album = Album.objects.get(id=pk)
+        context = {'album': album}
+        return render(request, 'songs/album.html', context=context)
