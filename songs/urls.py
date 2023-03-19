@@ -9,5 +9,6 @@ urlpatterns = [
     path('artist/<str:pk>/', views.GetArtist.as_view(), name='artist'),
     path('albums/', views.Albums.as_view(), name='albums'),
     path('album/<str:pk>/', views.GetAlbum.as_view(), name='album'),
+    path('create_album/', views.CreateAlbum.as_view(), name='create_album'),
     path('create_song/',  views.CreateSong.as_view(), name='create_song'),
 ]

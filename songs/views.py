@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.views import View
 
-from .forms import SongForm
+from .forms import SongForm, AlbumForm
 from .models import Album, Artist, Song
 
 
@@ -47,6 +47,31 @@ class GetAlbum(View):
         return render(request, 'songs/album.html', context=context)
 
 
+class CreateAlbum(View):
+    def get(self, request):
+        form = AlbumForm()
+        context = {'form': form}
+        return render(request, 'songs/create_album.html', context=context)
+
+    def post(self, request):
+        form = AlbumForm(request.POST)
+        if form.is_valid():
+            form.save()
+            try:
+                artist = request.user.profile.artist
+            except:
+                return redirect('index')
+
+            album = form.save()
+            album.artist.add(artist)
+            album.save()
+            return redirect('albums')
+        
+        else:
+            messages.error(request, 'An error occurred during creating album')
+            return redirect('create_album')
+
+
 class CreateSong(View):
     def get(self, request):
         form = SongForm()
@@ -56,8 +81,13 @@ class CreateSong(View):
     def post(self, request):
         form = SongForm(request.POST)
         if form.is_valid():
-            song = form.save(commit=False)
-            song.artist = request.user.profile.artist
+            try:
+                artist = request.user.profile.artist
+            except:
+                return redirect('index')
+            
+            song = form.save()
+            song.artist.add(artist)
             song.save()
             return redirect('songs')
         
