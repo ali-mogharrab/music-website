@@ -74,12 +74,26 @@ class CreateAlbum(View):
 
 class CreateSong(View):
     def get(self, request):
-        form = SongForm()
+        try:
+            artist = request.user.profile.artist
+        except:
+            return redirect('index')
+            
+        album = artist.album_set.all()
+
+        form = SongForm(albums=album)
         context = {'form': form}
         return render(request, 'songs/create_song.html', context=context)
     
     def post(self, request):
-        form = SongForm(request.POST)
+        try:
+            artist = request.user.profile.artist
+        except:
+            return redirect('index')
+            
+        album = artist.album_set.all()
+
+        form = SongForm(request.POST, albums=album)
         if form.is_valid():
             try:
                 artist = request.user.profile.artist
