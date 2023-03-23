@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 from songs.models import Artist
 
-from .models import Profile
+from .models import Message, Profile
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -23,3 +23,9 @@ class ArtistForm(forms.ModelForm):
     class Meta:
         model = Artist
         fields = ['nickname', 'bio']
+
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['email', 'subject', 'body']
