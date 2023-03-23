@@ -95,11 +95,6 @@ class CreateSong(View):
 
         form = SongForm(request.POST, albums=album)
         if form.is_valid():
-            try:
-                artist = request.user.profile.artist
-            except:
-                return redirect('index')
-            
             song = form.save()
             song.artist.add(artist)
             song.save()

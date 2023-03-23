@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.views import View
 
-from .forms import ArtistForm, CustomUserCreationForm, ProfileForm
+from .forms import ArtistForm, CustomUserCreationForm, MessageForm, ProfileForm
 
 
 class LoginUser(View):
@@ -108,3 +108,29 @@ class EditArtist(View):
         else:
             messages.error(request, 'An error occurred during editing artist')
             return redirect('edit_artist')
+
+
+class Contact(View):
+    def get(self, request):
+        form = MessageForm()
+        context = {'form': form}
+        return render(request, 'profiles/contact_form.html', context=context)
+
+    def post(self, request):
+        try:
+            sender = request.user.profile
+        except:
+            sender = None
+            
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.sender = sender
+            form.save()
+
+            messages.success(request, 'Message sent successfully!')
+            return redirect('index')
+        
+        else:
+            messages.error(request, 'An error occurred during sending message')
+            return redirect('contact')
