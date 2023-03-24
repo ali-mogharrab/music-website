@@ -12,6 +12,9 @@ class Artist(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
+    
+    def __str__(self):
+        return str(self.nickname)
 
 
 class Album(models.Model):
@@ -20,6 +23,9 @@ class Album(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
+    
+    def __str__(self):
+        return str(self.name)
 
 
 class Song(models.Model):
@@ -29,3 +35,6 @@ class Song(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
+    
+    def __str__(self):
+        return str(self.name)
