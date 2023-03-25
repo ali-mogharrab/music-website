@@ -1,0 +1,55 @@
+/* login_form */
+
+.login_form{
+    width: 450px;
+    height: 500px;
+    background-color: rgba(21, 21, 21, 0.8);
+    font-size: 17px;
+    margin: 110px auto;
+    text-align: center;
+    border-radius: 10px;
+    padding: 30px 40px;
+    position: relative;
+}
+
+.login_form_input{
+    width: 350px;
+    background-color: rgb(80, 80, 80);
+    color: rgb(212, 212, 212);
+    font-size: 16px;
+    height: 20px;
+    padding: 18px;
+    margin: 17px;
+    /* outline: 0; */
+}
+
+.login_form input[type='submit']{
+    background-color: rgb(80, 80, 80);
+    color: white;
+    width: 350px;
+    height: 45px;
+    font-size: 14px;
+    position: absolute;
+    top: 250px;
+    left: 57px;
+}
+
+.login_form input[type='submit']:hover{
+    background-color: rgb(54, 54, 54);
+}
+
+.login_form .sign_up{
+    position: absolute;
+    left: 142px;
+    bottom: 35px;
+}
+
+.login_form .sign_up a{
+    text-decoration: none;
+    font-size: 19px;
+    color: rgb(0, 190, 0);
+}
+
+.login_form .sign_up a:hover{
+    color: rgb(0, 137, 0);
+}

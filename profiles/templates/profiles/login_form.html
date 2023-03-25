@@ -4,17 +4,28 @@
 
 {% block content %}
 
-    <form action="{% url 'login' %}" method="post">
-        {% csrf_token %}
+    <div class="login_form">
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
 
-        <label for="username">Username: </label>
-        <input type="text" name="username" id="username" placeholder="Enter your username...">
-        <br>
-        <label for="password">password: </label>
-        <input type="password" name="password" id="password" placeholder="Enter your password...">
-        <br>
-        <input type="submit" value="Log In">
-        
-    </form>
+            <label for="username">Username: </label>
+            <br>
+            <input class="login_form_input" type="text" name="username" id="username" placeholder="Enter your username...">
+            <br>
+            <label for="password">password: </label>
+            <br>
+            <input class="login_form_input" type="password" name="password" id="password" placeholder="Enter your password...">
+            <br>
+            <input type="submit" value="Log In">
+            
+        </form>
+
+        <div class="sign_up">
+            <p>Don’t have an Account?</p>
+            <br>
+            <a href="{% url 'register' %}">Sign Up</a>
+        </div>
+
+    </div>
 
 {% endblock content %}
