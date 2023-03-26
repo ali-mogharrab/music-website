@@ -20,7 +20,6 @@
     height: 20px;
     padding: 18px;
     margin: 17px;
-    /* outline: 0; */
 }
 
 .login_form input[type='submit']{
@@ -90,5 +89,43 @@
 }
 
 .register_form input[type='submit']:hover{
+    background-color: rgb(54, 54, 54);
+}
+
+/* profile_form */
+
+.profile_form{
+    width: 650px;
+    height: 600px;
+    background-color: rgba(21, 21, 21, 0.8);
+    font-size: 17px;
+    margin: 110px auto;
+    text-align: center;
+    border-radius: 10px;
+    padding: 30px 40px;
+    position: relative;
+}
+
+.profile_form_input .input{
+    width: 80%;
+    background-color: rgb(80, 80, 80);
+    color: rgb(212, 212, 212);
+    font-size: 16px;
+    padding: 8px 15px;
+    margin: 15px;
+}
+
+.profile_form input[type='submit']{
+    background-color: rgb(80, 80, 80);
+    color: white;
+    width: 90px;
+    height: 45px;
+    font-size: 14px;
+    position: absolute;
+    bottom: 30px;
+    left: 280px;
+}
+
+.profile_form input[type='submit']:hover{
     background-color: rgb(54, 54, 54);
 }

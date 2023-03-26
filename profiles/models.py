@@ -1,6 +1,7 @@
 import uuid
 
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
@@ -12,7 +13,7 @@ class Profile(models.Model):
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     is_artist = models.BooleanField(default=False)
-    age = models.IntegerField(null=True, blank=True)
+    age = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(150)], null=True, blank=True)
     phone = models.CharField(max_length=15, null=True, blank=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)

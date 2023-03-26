@@ -89,7 +89,8 @@ class EditProfile(View):
         
         else:
             messages.error(request, 'An error occurred during editing profile')
-            return redirect('edit_profile')
+            context = {'form': form}
+            return render(request, 'profiles/profile_form.html', context=context)
 
 
 class EditArtist(View):
@@ -108,7 +109,8 @@ class EditArtist(View):
             return redirect('index')
         else:
             messages.error(request, 'An error occurred during editing artist')
-            return redirect('edit_artist')
+            context = {'form': form}
+            return render(request, 'profiles/artist_form.html', context=context)
 
 
 class Contact(View):
@@ -134,4 +136,5 @@ class Contact(View):
         
         else:
             messages.error(request, 'An error occurred during sending message')
-            return redirect('contact')
+            context = {'form': form}
+            return render(request, 'profiles/contact_form.html', context=context)
