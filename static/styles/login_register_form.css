@@ -53,3 +53,42 @@
 .login_form .sign_up a:hover{
     color: rgb(0, 137, 0);
 }
+
+/* register_form */
+
+.register_form{
+    width: 650px;
+    height: 700px;
+    background-color: rgba(21, 21, 21, 0.8);
+    font-size: 17px;
+    margin: 110px auto;
+    text-align: center;
+    border-radius: 10px;
+    padding: 30px 40px;
+    position: relative;
+}
+
+.register_form_input .input{
+    width: 80%;
+    background-color: rgb(80, 80, 80);
+    color: rgb(212, 212, 212);
+    font-size: 16px;
+    height: 20px;
+    padding: 15px;
+    margin: 15px;
+}
+
+.register_form input[type='submit']{
+    background-color: rgb(80, 80, 80);
+    color: white;
+    width: 90px;
+    height: 45px;
+    font-size: 14px;
+    position: absolute;
+    bottom: 30px;
+    left: 280px;
+}
+
+.register_form input[type='submit']:hover{
+    background-color: rgb(54, 54, 54);
+}

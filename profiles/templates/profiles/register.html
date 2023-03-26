@@ -4,10 +4,28 @@
 
 {% block content %}
 
-    <form action="{% url 'register' %}" method="post">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value="Submit">
-    </form>
+    <div class="register_form">
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div class="register_form_input">
+                    <label for="">{{field.label}}</label>
+                    <br>
+                    {{field}}
+                    <br>
+
+                    {% for error in field.errors %}
+                        <p style="color: red;">{{error}}</p>
+                        <br>
+                    {% endfor %}
+
+                </div>
+            {% endfor %}
+
+            <input type="submit" value="Submit">
+            
+        </form>
+    </div>
 
 {% endblock content %}

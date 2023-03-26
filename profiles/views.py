@@ -63,7 +63,8 @@ class RegisterUser(View):
 
         else:
             messages.error(request, 'An error occurred during registration')
-            return redirect('register')
+            context = {'form': form}
+            return render(request, 'profiles/register.html', context=context)
 
 
 class EditProfile(View):
