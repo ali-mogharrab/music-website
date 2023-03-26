@@ -24,6 +24,14 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ['age', 'gender', 'phone', 'is_artist']
 
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            print('*'*40, field.widget.attrs)
+            field.widget.attrs.update({'class': 'input'})
+
+
 
 class ArtistForm(forms.ModelForm):
     class Meta:
