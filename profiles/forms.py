@@ -28,15 +28,19 @@ class ProfileForm(forms.ModelForm):
         super(ProfileForm, self).__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
-            print('*'*40, field.widget.attrs)
             field.widget.attrs.update({'class': 'input'})
-
 
 
 class ArtistForm(forms.ModelForm):
     class Meta:
         model = Artist
         fields = ['nickname', 'bio']
+
+    def __init__(self, *args, **kwargs):
+        super(ArtistForm, self).__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'input'})
 
 
 class MessageForm(forms.ModelForm):
