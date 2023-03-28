@@ -6,7 +6,7 @@ from .models import Album, Song
 class SongForm(forms.ModelForm):
     class Meta:
         model = Song
-        fields = ['album', 'name']
+        fields = ['album', 'name', 'image']
 
     album = forms.ModelChoiceField(
         queryset=Album.objects.all(),

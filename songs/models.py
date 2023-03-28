@@ -32,6 +32,7 @@ class Song(models.Model):
     artist = models.ManyToManyField(Artist, blank=True)
     album = models.ForeignKey(Album, on_delete=models.SET_NULL, null=True, blank=True)
     name = models.CharField(max_length=50, null=True, blank=True)
+    image = models.ImageField(null=True, blank=True, upload_to='song_covers', default='defalut/default.jpg')
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
