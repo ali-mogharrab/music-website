@@ -19,6 +19,13 @@ class Songs(View):
         return render(request, 'songs/songs.html', context=context)
 
 
+class GetSong(View):
+    def get(self, request, pk):
+        song = Song.objects.get(id=pk)
+        context = {'song': song}
+        return render(request, 'songs/song.html', context=context)
+
+
 class Artists(View):
     def get(self, request):
         artists = Artist.objects.all()
@@ -93,7 +100,7 @@ class CreateSong(View):
             
         album = artist.album_set.all()
 
-        form = SongForm(request.POST, albums=album)
+        form = SongForm(request.POST, request.FILES, albums=album)
         if form.is_valid():
             song = form.save()
             song.artist.add(artist)

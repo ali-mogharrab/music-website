@@ -15,19 +15,6 @@
     color: orange;
 }
 
-.add-song{
-    text-decoration: none;
-    font-size: 20px;
-    color: white;
-    position: absolute;
-    right: 25px;
-    top: 20px;
-}
-
-.add-song:hover{
-    color: orange;
-}
-
 .add-album{
     text-decoration: none;
     font-size: 20px;

@@ -1,0 +1,34 @@
+.add-song{
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    position: absolute;
+    right: 25px;
+    top: 20px;
+}
+
+.add-song:hover{
+    color: orange;
+}
+
+.songs{
+    text-align: center;
+    margin: 30px;
+}
+
+.song{
+    display: inline-block;
+    width: 270px;
+    height: 290px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 21px;
+    border-radius: 10px;
+    border: solid 2px rgb(93, 77, 68);
+    background-color: black;
+    color: rgb(212, 212, 212);
+}
+
+.songs a{
+    text-decoration: none;
+}

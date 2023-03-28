@@ -4,9 +4,12 @@
 
 {% block content %}
 
-    <form action="{% url 'create_song' %}" method="post">
+    <form action="{% url 'create_song' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{form.as_p}}
+        {% for field in form %}
+            {{field}}
+            <br>
+        {% endfor %}
         <input type="submit" value="submit">
     </form>
 
