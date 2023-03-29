@@ -19,6 +19,9 @@ class SongForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['album'].queryset = albums
 
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'input'})
+
 
 class AlbumForm(forms.ModelForm):
     class Meta:
