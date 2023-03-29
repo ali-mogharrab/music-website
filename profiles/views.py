@@ -102,7 +102,7 @@ class EditArtist(View):
     
     def post(self, request):
         artist = request.user.profile.artist
-        form = ArtistForm(request.POST, instance=artist)
+        form = ArtistForm(request.POST, request.FILES, instance=artist)
         if form.is_valid():
             form.save()
             messages.success(request, 'Artist object updated successfully')

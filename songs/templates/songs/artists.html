@@ -4,9 +4,16 @@
 
 {% block content %}
 
-    {% for artist in artists %}
-        <a href="{% url 'artist' artist.id %}" style="color: white;">{{artist}}</a>
-        <br>
-    {% endfor %}
+    <div class="artists">
+        {% for artist in artists %}
+            <a href="{% url 'artist' artist.id %}">
+                <div class="artist">
+                    <img src="{{ artist.image.url }}" alt="artist's image">
+                    <h3>{{artist.nickname}}</h3>
+                    <br>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
 
 {% endblock content %}

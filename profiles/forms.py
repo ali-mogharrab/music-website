@@ -34,7 +34,7 @@ class ProfileForm(forms.ModelForm):
 class ArtistForm(forms.ModelForm):
     class Meta:
         model = Artist
-        fields = ['nickname', 'bio']
+        fields = ['nickname', 'bio', 'image']
 
     def __init__(self, *args, **kwargs):
         super(ArtistForm, self).__init__(*args, **kwargs)
