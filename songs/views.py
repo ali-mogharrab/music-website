@@ -61,7 +61,7 @@ class CreateAlbum(View):
         return render(request, 'songs/create_album.html', context=context)
 
     def post(self, request):
-        form = AlbumForm(request.POST)
+        form = AlbumForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             try:
