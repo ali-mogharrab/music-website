@@ -1,0 +1,21 @@
+.albums{
+    text-align: center;
+    margin: 30px;
+}
+
+.album{
+    display: inline-block;
+    width: 270px;
+    height: 290px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 21px;
+    border-radius: 10px;
+    border: solid 2px rgb(93, 77, 68);
+    background-color: black;
+    color: rgb(212, 212, 212);
+}
+
+.albums a{
+    text-decoration: none;
+}
