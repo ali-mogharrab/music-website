@@ -4,10 +4,27 @@
 
 {% block content %}
 
-    <form action="{% url 'create_album' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value="submit">
-    </form>
+    <div class="album_form">
+        <form action="{% url 'create_album' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {% for field in form %}
+                <div class="album_form_input">
+                    <label for="">{{field.label}}</label>
+                    <br>
+                    {{field}}
+                    <br>
+
+                    {% for error in field.errors %}
+                        <p style="color: red;">{{error}}</p>
+                        <br>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            <input type="submit" value="submit">
+
+        </form>
+    </div>
 
 {% endblock content %}
