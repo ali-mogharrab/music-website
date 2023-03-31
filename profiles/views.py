@@ -79,12 +79,12 @@ class EditProfile(View):
         form = ProfileForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Profile updated successfully')
 
             is_artist = form.cleaned_data['is_artist']
             if is_artist:
                 return redirect('edit_artist')
 
-            messages.success(request, 'Profile updated successfully')
             return redirect('index')
         
         else:

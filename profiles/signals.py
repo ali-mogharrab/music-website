@@ -15,9 +15,10 @@ def create_profile(sender, instance, created, **kwargs):
             user=user,
         )
 
+
 def create_artist(sender, instance, created, **kwargs):
-    if created:
-        profile = instance
+    profile = instance
+    if instance.is_artist:
         Artist.objects.create(
             profile=profile,
         )

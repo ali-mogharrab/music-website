@@ -131,3 +131,4 @@ dmypy.json
 # Costum
 migrations
 media/song_covers
+media/album_covers
