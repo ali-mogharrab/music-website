@@ -4,6 +4,28 @@
 
 {% block content %}
 
-    <h1>{{song}}</h1>
+    <div class="contain">
+        <div class="container">
+            <div class="music-player">
+                <div class="cover">
+                    <img src="{{ song.image.url }}" alt="song's cover" />
+                </div>
+                <div class="titre">
+                    {% for artist in song.artist.all %}
+                        <h3>{{ artist|title }}</h3>
+                    {% endfor %}
+                    <h1>
+                    {{song.title}}
+                    </h1>
+                </div>
+                <center><a href="#"><i class="fa fa-step-backward fa-2x"></i></a> &nbsp; &nbsp; &nbsp; <a href="#"><i class="fa fa-step-forward fa-2x"></i></a></center>
+                <div class="lecteur">
+                    <audio class="fc-media" style="width: 100%;">
+                    <source src="{{ song.song_file.url }}" type="audio/mp3"/>
+                    </audio>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock content %}

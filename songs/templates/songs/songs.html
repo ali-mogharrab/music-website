@@ -7,12 +7,13 @@
     {% if request.user.profile.is_artist %}
         <a href="{% url 'create_song' %}" class="add-song">Add Song</a>
     {% endif %}
-    
+
     <div class="songs">
         {% for song in songs %}
             <a href="{% url 'song' song.id %}">
                 <div class="song">
                     <img src="{{ song.image.url }}" alt="song's cover">
+                    <br>
                     <h3>{{song.name}}</h3>
                     <br>
                 </div>

@@ -14,6 +14,10 @@
     <link rel="stylesheet" href="{% static 'styles/artists.css' %}">
     <link rel="stylesheet" href="{% static 'styles/albums.css' %}">
 
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.7/mediaelementplayer.min.css"/>
+    <link rel="stylesheet" href="{% static 'styles/music_player.css' %}"/>
+
     <title>{% block title %}{% endblock title %}</title>
 </head>
 <body>
@@ -31,4 +35,12 @@
 
     {% endblock content %}
 </body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.7/mediaelement-and-player.min.js">
+</script>
+<script src="{% static 'js/music_player.js' %}">
+</script>
+
 </html>

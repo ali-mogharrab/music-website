@@ -21,12 +21,20 @@
     width: 270px;
     height: 290px;
     margin: 10px;
-    padding: 10px;
+    padding: 20px;
     font-size: 21px;
     border-radius: 10px;
     border: solid 2px rgb(93, 77, 68);
     background-color: black;
     color: rgb(212, 212, 212);
+}
+
+.song img{
+    width: 97%;
+}
+
+.song h3{
+    font-size: 22px;
 }
 
 .songs a{
