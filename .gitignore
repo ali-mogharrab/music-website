@@ -132,3 +132,4 @@ dmypy.json
 migrations
 media/song_covers
 media/album_covers
+media/song_files

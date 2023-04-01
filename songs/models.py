@@ -13,7 +13,7 @@ class Artist(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
-    
+
     def __str__(self):
         return str(self.nickname)
 
@@ -25,7 +25,7 @@ class Album(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
-    
+
     def __str__(self):
         return str(self.name)
 
@@ -35,9 +35,10 @@ class Song(models.Model):
     album = models.ForeignKey(Album, on_delete=models.SET_NULL, null=True, blank=True)
     name = models.CharField(max_length=50, null=True, blank=True)
     image = models.ImageField(null=True, blank=True, upload_to='song_covers', default='defaults/default_song.jpg')
+    song_file = models.FileField(null=True, blank=True, upload_to='song_files')
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
-    
+
     def __str__(self):
         return str(self.name)

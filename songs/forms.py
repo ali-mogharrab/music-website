@@ -6,11 +6,11 @@ from .models import Album, Song
 class SongForm(forms.ModelForm):
     class Meta:
         model = Song
-        fields = ['album', 'name', 'image']
+        fields = ['album', 'name', 'image', 'song_file']
 
     album = forms.ModelChoiceField(
         queryset=Album.objects.all(),
-        required=True,  
+        required=True,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 

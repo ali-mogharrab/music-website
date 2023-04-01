@@ -73,7 +73,7 @@ class CreateAlbum(View):
             album.artist.add(artist)
             album.save()
             return redirect('albums')
-        
+
         else:
             messages.error(request, 'An error occurred during creating album')
             return redirect('create_album')
@@ -85,19 +85,19 @@ class CreateSong(View):
             artist = request.user.profile.artist
         except:
             return redirect('index')
-            
+
         album = artist.album_set.all()
 
         form = SongForm(albums=album)
         context = {'form': form}
         return render(request, 'songs/create_song.html', context=context)
-    
+
     def post(self, request):
         try:
             artist = request.user.profile.artist
         except:
             return redirect('index')
-            
+
         album = artist.album_set.all()
 
         form = SongForm(request.POST, request.FILES, albums=album)
@@ -106,7 +106,7 @@ class CreateSong(View):
             song.artist.add(artist)
             song.save()
             return redirect('songs')
-        
+
         else:
             messages.error(request, 'An error occurred during creating song')
             return redirect('create_song')
