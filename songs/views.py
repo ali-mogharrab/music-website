@@ -2,13 +2,17 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.views import View
 
-from .forms import SongForm, AlbumForm
+from .forms import AlbumForm, SongForm
 from .models import Album, Artist, Song
+from .utils import Search
 
 
 class Index(View):
     def get(self, request):
-        context = {}
+        search = Search(request)
+        result_objects, search_query = search()
+
+        context = {'objects': result_objects, 'search_query': search_query}
         return render(request, 'songs/index.html', context=context)
 
 

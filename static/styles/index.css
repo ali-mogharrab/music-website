@@ -11,3 +11,83 @@ body{
     background-size: cover;
     color: white;
 }
+
+/* search */
+
+.search{
+    width: 100%;
+    height: 400px;
+    background-color: rgba(134, 134, 134, 0.3);
+    text-align: center;
+}
+
+.search input[type='text']{
+    width: 40%;
+    height: 60px;
+    font-size: 16px;
+    background-color: rgb(189, 189, 189);
+    padding: 8px 15px;
+    margin-top: 150px;
+    margin-right: 10px;
+    border-radius: 20px;
+    border: none;
+}
+
+.search input[type='submit']{
+    width: 100px;
+    height: 65px;
+    font-size: 17px;
+    padding: 8px 15px;
+    margin-top: 150px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.search input[type='submit']:hover{
+    background-color: rgb(79, 79, 79);
+    color: rgb(207, 207, 207);
+}
+
+.search select{
+    width: 100px;
+    height: 65px;
+    font-size: 17px;
+    padding: 8px 15px;
+    margin-top: 150px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+/* objects */
+
+.objects{
+    text-align: center;
+    margin: 30px;
+}
+
+.object{
+    display: inline-block;
+    width: 270px;
+    height: 290px;
+    margin: 10px;
+    padding: 20px;
+    font-size: 21px;
+    border-radius: 10px;
+    border: solid 2px rgb(93, 77, 68);
+    background-color: black;
+    color: rgb(212, 212, 212);
+}
+
+.object img{
+    width: 97%;
+}
+
+.object h3{
+    font-size: 22px;
+}
+
+.objects a{
+    text-decoration: none;
+}

@@ -1,7 +1,56 @@
 {% extends 'base.html' %}
-
+{% load custom_tags %}
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-    
+
+    <div class="search">
+        <form action="{% url 'index' %}", method="get">
+            <input type="text" name="search_query" value="{{ search_query }}">
+            <input type="submit" value="Search">
+            <select name="search_part">
+                <option value="all">All</option>
+                <option value="songs">Songs</option>
+                <option value="artists">Artists</option>
+                <option value="albums">Albums</option>
+            </select>
+        </form>
+    </div>
+
+    <div class="objects">
+        {% for object in objects %}
+            {% if object|get_type == 'Song' %}
+                <a href="{% url 'song' object.id %}">
+                    <div class="object">
+                        <img src="{{ object.image.url }}" alt="song's cover">
+                        <br>
+                        <h3>{{object.name}}</h3>
+                        <br>
+                    </div>
+                </a>
+
+            {% elif object|get_type == 'Artist' %}
+                <a href="{% url 'artist' object.id %}">
+                    <div class="object">
+                        <img src="{{ object.image.url }}" alt="artist's cover">
+                        <br>
+                        <h3>{{object.nickname}}</h3>
+                        <br>
+                    </div>
+                </a>
+
+            {% elif object|get_type == 'Album' %}
+                <a href="{% url 'album' object.id %}">
+                    <div class="object">
+                        <img src="{{ object.image.url }}" alt="album's cover">
+                        <br>
+                        <h3>{{object.name}}</h3>
+                        <br>
+                    </div>
+                </a>
+
+            {% endif %}
+        {% endfor %}
+    </div>
+
 {% endblock content %}
