@@ -1,8 +1,35 @@
 from itertools import chain
 
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
 
 from .models import Album, Artist, Song
+
+
+def paginate_objects(request, object_list, per_page):
+    page = request.GET.get('page')
+    paginator = Paginator(object_list=object_list, per_page=per_page)
+
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1
+        objects = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages
+        objects = paginator.page(page)
+
+    left_index = (int(page) - 1)
+    if left_index <= 0:
+        left_index = 1
+
+    right_index = (int(page) + 1 )
+    if right_index > paginator.num_pages:
+        right_index = paginator.num_pages
+
+    custom_range = range(left_index, right_index + 1)
+
+    return objects, custom_range
 
 
 class Search:
