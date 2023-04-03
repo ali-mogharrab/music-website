@@ -16,29 +16,29 @@ body{
 
 .search{
     width: 100%;
-    height: 400px;
+    height: 80px;
     background-color: rgba(134, 134, 134, 0.3);
     text-align: center;
 }
 
 .search input[type='text']{
-    width: 40%;
-    height: 60px;
+    width: 36%;
+    height: 50px;
     font-size: 16px;
     background-color: rgb(189, 189, 189);
     padding: 8px 15px;
-    margin-top: 150px;
+    margin-top: 15px;
     margin-right: 10px;
     border-radius: 20px;
     border: none;
 }
 
 .search input[type='submit']{
-    width: 100px;
-    height: 65px;
+    width: 82px;
+    height: 50px;
     font-size: 17px;
     padding: 8px 15px;
-    margin-top: 150px;
+    margin-top: 15px;
     border-radius: 20px;
     border: none;
     cursor: pointer;
@@ -50,11 +50,11 @@ body{
 }
 
 .search select{
-    width: 100px;
-    height: 65px;
+    width: 82px;
+    height: 50px;
     font-size: 17px;
     padding: 8px 15px;
-    margin-top: 150px;
+    margin-top: 15px;
     border-radius: 20px;
     border: none;
     cursor: pointer;
@@ -90,4 +90,34 @@ body{
 
 .objects a{
     text-decoration: none;
+}
+
+/* pagination */
+
+.pagination{
+    width: 100%;
+    position: absolute;
+    bottom: 36px;
+}
+
+.pagination ul{
+    list-style-type: none;
+    text-align: center;
+}
+
+.pagination ul li{
+    display: inline-block;
+    padding: 12px;
+    font-size: 20px;
+}
+
+.pagination ul li a{
+    text-decoration: none;
+    color: white;
+}
+
+.pagination ul li .current_page{
+    padding: 10px;
+    background-color: rgb(165, 100, 21);
+    border-radius: 10px;
 }

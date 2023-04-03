@@ -20,4 +20,6 @@
         {% endfor %}
     </div>
 
+    {% include 'pagination.html' with queryset=albums custom_range=custum_range %}
+
 {% endblock content %}

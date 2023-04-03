@@ -5,8 +5,8 @@
 {% block content %}
 
     <div class="search">
-        <form action="{% url 'index' %}", method="get">
-            <input type="text" name="search_query" value="{{ search_query }}">
+        <form id="searchForm" action="{% url 'index' %}", method="get">
+            <input type="text" name="search_query" value="{{ search_query }}" placeholder="Search">
             <input type="submit" value="Search">
             <select name="search_part">
                 <option value="all">All</option>
@@ -52,5 +52,7 @@
             {% endif %}
         {% endfor %}
     </div>
+
+    {% include 'pagination.html' with queryset=objects custom_range=custom_range %}
 
 {% endblock content %}

@@ -16,4 +16,6 @@
         {% endfor %}
     </div>
 
+    {% include 'pagination.html' with queryset=artists custom_range=custom_range%}
+
 {% endblock content %}

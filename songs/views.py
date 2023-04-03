@@ -4,7 +4,7 @@ from django.views import View
 
 from .forms import AlbumForm, SongForm
 from .models import Album, Artist, Song
-from .utils import Search
+from .utils import Search, paginate_objects
 
 
 class Index(View):
@@ -12,14 +12,19 @@ class Index(View):
         search = Search(request)
         result_objects, search_query = search()
 
-        context = {'objects': result_objects, 'search_query': search_query}
+        objects, custom_range = paginate_objects(request, result_objects, 8)
+
+        context = {'objects': objects, 'search_query': search_query, 'custom_range': custom_range}
         return render(request, 'songs/index.html', context=context)
 
 
 class Songs(View):
     def get(self, request):
         songs = Song.objects.all()
-        context = {'songs': songs}
+
+        songs, custom_range = paginate_objects(request, songs, 5)
+
+        context = {'songs': songs, 'custom_range': custom_range}
         return render(request, 'songs/songs.html', context=context)
 
 
@@ -33,7 +38,10 @@ class GetSong(View):
 class Artists(View):
     def get(self, request):
         artists = Artist.objects.all()
-        context = {'artists': artists}
+
+        artists, custom_range = paginate_objects(request, artists, 5)
+
+        context = {'artists': artists, 'custom_range': custom_range}
         return render(request, 'songs/artists.html', context=context)
 
 
@@ -47,7 +55,10 @@ class GetArtist(View):
 class Albums(View):
     def get(self, request):
         albums = Album.objects.all()
-        context = {'albums': albums}
+
+        albums, custom_range = paginate_objects(request, albums, 5)
+
+        context = {'albums': albums, 'custom_range': custom_range}
         return render(request, 'songs/albums.html', context=context)
 
 
