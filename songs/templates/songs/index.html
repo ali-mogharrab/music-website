@@ -5,7 +5,7 @@
 {% block content %}
 
     <div class="search">
-        <form id="searchForm" action="{% url 'index' %}", method="get">
+        <form id="searchForm" action="{% url 'index' %}" method="get">
             <input type="text" name="search_query" value="{{ search_query }}" placeholder="Search">
             <input type="submit" value="Search">
             <select name="search_part">

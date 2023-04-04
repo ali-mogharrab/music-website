@@ -48,7 +48,12 @@ class Artists(View):
 class GetArtist(View):
     def get(self, request, pk):
         artist = Artist.objects.get(id=pk)
-        context = {'artist': artist}
+
+        songs = Song.objects.filter(artist=artist)
+
+        albums = Album.objects.filter(artist=artist)
+
+        context = {'artist': artist, 'songs': songs, 'albums': albums}
         return render(request, 'songs/artist.html', context=context)
 
 

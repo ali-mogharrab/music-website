@@ -4,6 +4,46 @@
 
 {% block content %}
 
-    <h1>{{artist.nickname}}</h1>
-    
+    <div class="artist_page">
+        <img src="{{ artist.image.url }}" alt="artist's image">
+        <h1>{{ artist.nickname }}</h1>
+    </div>
+    <hr>
+
+    <div class="artist_page_list">
+        <ul>
+            <li><a href="?type=songs">Songs</a></li>
+            <li><a href="?type=albums">Albums</a></li>
+        </ul>
+    </div>
+
+    {% if request.GET.type == 'albums' %}
+        <div class="albums">
+            {% for album in albums %}
+                <a href="{% url 'album' album.id %}">
+                    <div class="album">
+                        <img src="{{ album.image.url }}" alt="album's cover">
+                        <h3>{{album.name}}</h3>
+                        <br>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <div class="songs">
+            {% for song in songs %}
+                <a href="{% url 'song' song.id %}">
+                    <div class="song">
+                        <img src="{{ song.image.url }}" alt="song's cover">
+                        <br>
+                        <h3>{{song.name}}</h3>
+                        <br>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+
+    {% endif %}
+
 {% endblock content %}
