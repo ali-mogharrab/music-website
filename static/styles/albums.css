@@ -57,3 +57,38 @@
 .album_form input[type='submit']:hover{
     background-color: rgb(54, 54, 54);
 }
+
+/* album_single_page */
+
+.album_page{
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    height: 300px;
+}
+
+.album_page img{
+    border-radius: 10px;
+    border: solid 2px rgb(93, 77, 68);
+    margin-bottom: 10px;
+}
+
+.album_page_list ul{
+    list-style-type: none;
+    text-align: center;
+}
+
+.album_page_list ul li{
+    display: inline-block;
+    padding: 12px;
+    font-size: 20px;
+}
+
+.album_page_list ul a{
+    text-decoration: none;
+    color: white;
+}
+
+.album_page_list ul a:hover{
+    color: orange;
+}

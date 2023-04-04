@@ -4,6 +4,48 @@
 
 {% block content %}
 
-    {{album}}
+    <div class="album_page">
+        <img src="{{ album.image.url }}" alt="album's image">
+        <h1>{{ album.name }}</h1>
+    </div>
+
+    <br>
+    <hr>
+
+    <div class="album_page_list">
+        <ul>
+            <li><a href="?type=songs">Songs</a></li>
+            <li><a href="?type=artists">Artists</a></li>
+        </ul>
+    </div>
+
+    {% if request.GET.type == 'artists' %}
+        <div class="artists">
+            {% for artist in artists %}
+                <a href="{% url 'artist' artist.id %}">
+                    <div class="artist">
+                        <img src="{{ artist.image.url }}" alt="artist's image">
+                        <h3>{{artist.nickname}}</h3>
+                        <br>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <div class="songs">
+            {% for song in songs %}
+                <a href="{% url 'song' song.id %}">
+                    <div class="song">
+                        <img src="{{ song.image.url }}" alt="song's cover">
+                        <br>
+                        <h3>{{song.name}}</h3>
+                        <br>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+
+    {% endif %}
 
 {% endblock content %}

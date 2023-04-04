@@ -70,7 +70,12 @@ class Albums(View):
 class GetAlbum(View):
     def get(self, request, pk):
         album = Album.objects.get(id=pk)
-        context = {'album': album}
+
+        songs = album.song_set.all()
+
+        artists = album.artist.all()
+
+        context = {'album': album, 'songs': songs, 'artists': artists}
         return render(request, 'songs/album.html', context=context)
 
 

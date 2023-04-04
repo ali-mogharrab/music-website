@@ -32,6 +32,7 @@
 .artist_page img{
     border-radius: 10px;
     border: solid 2px rgb(93, 77, 68);
+    margin-bottom: 10px;
 }
 
 .artist_page_list ul{
