@@ -71,8 +71,7 @@ class UpdateSong(View):
 
         form = SongForm(request.POST, request.FILES, albums=albums, instance=song)
         if form.is_valid():
-            song = form.save()
-            song.save()
+            form.save()
             messages.success(request, 'Song updated successfully')
             return redirect('my_songs')
 
@@ -125,6 +124,36 @@ class GetAlbum(View):
         return render(request, 'songs/album.html', context=context)
 
 
+class MyAlbums(View):
+    def get(self, request):
+        artist = request.user.profile.artist
+        albums = artist.album_set.all()
+        context = {'albums': albums}
+        return render(request, 'songs/my_albums.html', context=context)
+
+
+class UpdateAlbum(View):
+    def get(self, request, pk):
+        album = Album.objects.get(id=pk)
+        form = AlbumForm(instance=album)
+        context= {'form': form, 'album': album}
+        return render(request, 'songs/update_album.html', context=context)
+
+    def post(self, request, pk):
+
+        album = Album.objects.get(id=pk)
+
+        form = AlbumForm(request.POST, request.FILES, instance=album)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Album updated successfully')
+            return redirect('my_albums')
+
+        else:
+            messages.error(request, 'An error occurred during updating Album')
+            return redirect('my_albums')
+
+
 class CreateAlbum(View):
     def get(self, request):
         form = AlbumForm()
@@ -138,6 +167,7 @@ class CreateAlbum(View):
             try:
                 artist = request.user.profile.artist
             except:
+                messages.error(request, 'An error occurred during creating album')
                 return redirect('index')
 
             album = form.save()

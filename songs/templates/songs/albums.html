@@ -6,6 +6,7 @@
 
     {% if request.user.profile.is_artist %}
         <a href="{% url 'create_album' %}" class="add-album">Add Album</a>
+        <a href="{% url 'my_albums' %}" class="my-albums">My Albums</a>
     {% endif %}
 
     <div class="albums">

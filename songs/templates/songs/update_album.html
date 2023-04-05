@@ -5,7 +5,7 @@
 {% block content %}
 
     <div class="album_form">
-        <form action="{% url 'create_album' %}" method="post" enctype="multipart/form-data">
+        <form action="{% url 'update_album' album.id %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
             {% for field in form %}
