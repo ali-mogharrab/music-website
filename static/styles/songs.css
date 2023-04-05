@@ -3,13 +3,49 @@
     font-size: 20px;
     color: white;
     position: absolute;
-    right: 25px;
+    right: 125px;
     top: 20px;
 }
 
 .add-song:hover{
     color: orange;
 }
+
+/* My Songs */
+
+.my-songs{
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    position: absolute;
+    right: 25px;
+    top: 20px;
+}
+
+.my-songs:hover{
+    color: orange;
+}
+
+.songs .song_out{
+    display: inline-block;
+    width: 290px;
+    height: 345px;
+}
+
+.songs .update_delete_song{
+    text-decoration: none;
+    color: white;
+    background-color: rgb(137, 101, 23);
+    font-size: 20px;
+    padding: 5px 26px;
+    border-radius: 20px;
+}
+
+.songs .update_delete_song:hover{
+    background-color: rgb(47, 95, 137);
+}
+
+/* songs page */
 
 .songs{
     text-align: center;

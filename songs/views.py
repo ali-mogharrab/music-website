@@ -35,6 +35,52 @@ class GetSong(View):
         return render(request, 'songs/song.html', context=context)
 
 
+class MySongs(View):
+    def get(self, request):
+        artist = request.user.profile.artist
+        songs = artist.song_set.all()
+        context = {'songs': songs}
+        return render(request, 'songs/my_songs.html', context=context)
+
+
+class UpdateSong(View):
+    def get(self, request, pk):
+        try:
+            artist = request.user.profile.artist
+        except:
+            return redirect('index')
+
+        albums = artist.album_set.all()
+
+        song = Song.objects.get(id=pk)
+
+        form = SongForm(albums=albums, instance=song)
+
+        context = {'form': form, 'song': song}
+        return render(request, 'songs/update_song.html', context=context)
+
+    def post(self, request, pk):
+        try:
+            artist = request.user.profile.artist
+        except:
+            return redirect('index')
+
+        albums = artist.album_set.all()
+
+        song = Song.objects.get(id=pk)
+
+        form = SongForm(request.POST, request.FILES, albums=albums, instance=song)
+        if form.is_valid():
+            song = form.save()
+            song.save()
+            messages.success(request, 'Song updated successfully')
+            return redirect('my_songs')
+
+        else:
+            messages.error(request, 'An error occurred during updating song')
+            return redirect('my_songs')
+
+
 class Artists(View):
     def get(self, request):
         artists = Artist.objects.all()
@@ -130,6 +176,7 @@ class CreateSong(View):
             song = form.save()
             song.artist.add(artist)
             song.save()
+            messages.success(request, 'Song created successfully')
             return redirect('songs')
 
         else:

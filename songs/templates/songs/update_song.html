@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}Create song{% endblock title %}
+{% block title %}Update song{% endblock title %}
 
 {% block content %}
 
     <div class="song_form">
-        <form action="{% url 'create_song' %}" method="post" enctype="multipart/form-data">
+        <form action="{% url 'update_song' song.id %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
             {% for field in form %}

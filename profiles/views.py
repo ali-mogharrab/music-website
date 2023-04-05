@@ -86,7 +86,7 @@ class EditProfile(View):
                 return redirect('edit_artist')
 
             return redirect('index')
-        
+
         else:
             messages.error(request, 'An error occurred during editing profile')
             context = {'form': form}

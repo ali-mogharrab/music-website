@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}My Songs{% endblock title %}
+
+{% block content %}
+
+    <div class="songs">
+        {% for song in songs %}
+            <div class="song_out">
+                <a href="{% url 'song' song.id %}">
+                    <div class="song">
+                        <img src="{{ song.image.url }}" alt="song's cover">
+                        <br>
+                        <h3>{{song.name}}</h3>
+                        <br>
+                    </div>
+                </a>
+                <a href="{% url 'update_song' song.id %}" class="update_delete_song">Edit</a>
+                <a href="" class="update_delete_song">Delete</a>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock content %}

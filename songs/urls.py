@@ -12,4 +12,6 @@ urlpatterns = [
     path('album/<str:pk>/', views.GetAlbum.as_view(), name='album'),
     path('create_album/', views.CreateAlbum.as_view(), name='create_album'),
     path('create_song/',  views.CreateSong.as_view(), name='create_song'),
+    path('my_songs/', views.MySongs.as_view(), name='my_songs'),
+    path('update_song/<str:pk>/', views.UpdateSong.as_view(), name='update_song'),
 ]

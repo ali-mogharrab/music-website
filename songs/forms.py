@@ -16,7 +16,7 @@ class SongForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         albums = kwargs.pop('albums', None)
-        super().__init__(*args, **kwargs)
+        super(SongForm, self).__init__(*args, **kwargs)
         self.fields['album'].queryset = albums
 
         for name, field in self.fields.items():
