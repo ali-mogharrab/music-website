@@ -12,6 +12,19 @@ body{
     color: white;
 }
 
+.update_profile{
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    position: absolute;
+    right: 25px;
+    top: 20px;
+}
+
+.update_profile:hover{
+    color: orange;
+}
+
 /* search */
 
 .search{

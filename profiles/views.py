@@ -11,7 +11,7 @@ class LoginUser(View):
     def get(self, request):
         if request.user.is_authenticated:
             return redirect('index')
-        
+
         context = {}
         return render(request, 'profiles/login_form.html', context)
 
@@ -29,7 +29,7 @@ class LoginUser(View):
             login(request, user)
             messages.success(request, 'User loged in successfully')
             return redirect('index')
-        
+
         else:
             messages.error(request, 'Username or Password is incorrect!')
             return redirect('login')
@@ -99,7 +99,7 @@ class EditArtist(View):
         form = ArtistForm(instance=artist)
         context = {'form': form}
         return render(request, 'profiles/artist_form.html', context=context)
-    
+
     def post(self, request):
         artist = request.user.profile.artist
         form = ArtistForm(request.POST, request.FILES, instance=artist)
@@ -124,7 +124,7 @@ class Contact(View):
             sender = request.user.profile
         except:
             sender = None
-            
+
         form = MessageForm(request.POST)
         if form.is_valid():
             form = form.save(commit=False)
@@ -133,7 +133,7 @@ class Contact(View):
 
             messages.success(request, 'Message sent successfully!')
             return redirect('index')
-        
+
         else:
             messages.error(request, 'An error occurred during sending message')
             context = {'form': form}

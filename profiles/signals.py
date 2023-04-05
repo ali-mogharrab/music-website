@@ -19,20 +19,23 @@ def create_profile(sender, instance, created, **kwargs):
 def create_artist(sender, instance, created, **kwargs):
     profile = instance
     if instance.is_artist:
-        Artist.objects.create(
-            profile=profile,
-        )
+        try:
+            artist = profile.artist
+        except:
+            Artist.objects.create(
+                profile=profile,
+            )
 
-        subject = 'Welcom to music website'
-        message = 'We are glad you are here!'
+            subject = 'Welcom to music website'
+            message = 'We are glad you are here!'
 
-        send_mail(
-            subject=subject,
-            message=message,
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[profile.user.email],
-            fail_silently=False,
-        )
+            send_mail(
+                subject=subject,
+                message=message,
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[profile.user.email],
+                fail_silently=False,
+            )
 
 
 post_save.connect(create_profile, sender=User)

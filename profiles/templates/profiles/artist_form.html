@@ -7,7 +7,7 @@
     <div class="artist_form">
         <form action="{% url 'edit_artist' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            
+
             {% for field in form %}
                 <div class="artist_form_input">
                     <label for="">{{field.label}}</label>
