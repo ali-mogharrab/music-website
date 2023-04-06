@@ -169,6 +169,21 @@ class UpdateAlbum(View):
             return redirect('my_albums')
 
 
+class DeleteAlbum(View):
+    def get(self, request, pk):
+        album = Album.objects.get(id=pk)
+        context = {'album': album}
+        return render(request, 'songs/delete_album.html', context=context)
+
+    def post(self, request, pk):
+        album = Album.objects.get(id=pk)
+        if request.POST['delete'] == 'Yes':
+            album.delete()
+            messages.success(request, 'Album deleted successfully')
+
+        return redirect('my_albums')
+
+
 class CreateAlbum(View):
     def get(self, request):
         form = AlbumForm()

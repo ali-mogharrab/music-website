@@ -16,7 +16,7 @@
                     </div>
                 </a>
                 <a href="{% url 'update_album' album.id %}" class="update_delete_album">Edit</a>
-                <a href="" class="update_delete_album">Delete</a>
+                <a href="{% url 'delete_album' album.id %}" class="update_delete_album">Delete</a>
             </div>
         {% endfor %}
     </div>

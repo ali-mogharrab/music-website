@@ -70,6 +70,7 @@
 }
 
 .song h3{
+    margin-top: 3px;
     font-size: 22px;
 }
 
@@ -115,9 +116,9 @@
     background-color: rgb(54, 54, 54);
 }
 
-/* delete song */
+/* delete form */
 
-.delete_song{
+.delete_form{
     width: 750px;
     height: 230px;
     background-color: rgba(21, 21, 21, 0.8);
@@ -129,13 +130,13 @@
     position: relative;
 }
 
-.delete_song p{
+.delete_form p{
     font-size: 23px;
     margin: 20px;
     color: rgb(236, 236, 236);
 }
 
-.delete_song input{
+.delete_form input{
     font-size: 17px;
     padding: 18px;
     margin: 30px;
@@ -146,7 +147,7 @@
     cursor: pointer;
 }
 
-.delete_song input:hover{
+.delete_form input:hover{
     background-color: rgb(148, 96, 0);
     color: black
 }

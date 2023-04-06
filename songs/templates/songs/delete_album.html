@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %}Delete Song{% endblock %}
+{% block title %}Delete Album{% endblock title %}
 
 {% block content %}
 
     <div class="delete_form">
-        <form action="{% url 'delete_song' song.id %}" method="post">
+        <form action="{% url 'delete_album' album.id %}" method="post">
             {% csrf_token %}
-            <p>Are you sure you want to delete "{{song}}"?</p>
+            <p>Are you sure you want to delete "{{album}}"?</p>
             <input type="submit" name="delete" value="Yes">
             <input type="submit" name="delete" value="No">
         </form>
