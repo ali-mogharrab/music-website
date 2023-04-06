@@ -16,7 +16,7 @@
                     </div>
                 </a>
                 <a href="{% url 'update_song' song.id %}" class="update_delete_song">Edit</a>
-                <a href="" class="update_delete_song">Delete</a>
+                <a href="{% url 'delete_song' song.id %}" class="update_delete_song">Delete</a>
             </div>
         {% endfor %}
     </div>

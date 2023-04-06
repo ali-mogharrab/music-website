@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Song{% endblock %}
+
+{% block content %}
+
+    <div class="delete_song">
+        <form action="{% url 'delete_song' song.id %}" method="post">
+            {% csrf_token %}
+            <p>Are you sure you want to delete "{{song}}"?</p>
+            <input type="submit" name="delete" value="Yes">
+            <input type="submit" name="delete" value="No">
+        </form>
+    </div>
+
+
+{% endblock content %}

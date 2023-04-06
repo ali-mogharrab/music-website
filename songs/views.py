@@ -80,6 +80,21 @@ class UpdateSong(View):
             return redirect('my_songs')
 
 
+class DeleteSong(View):
+    def get(self, request, pk):
+        song = Song.objects.get(id=pk)
+        context = {'song': song}
+        return render(request, 'songs/delete_song.html', context=context)
+
+    def post(self, request, pk):
+        song = Song.objects.get(id=pk)
+        if request.POST['delete'] == 'Yes':
+            song.delete()
+            messages.success(request, 'Song deleted successfully')
+
+        return redirect('my_songs')
+
+
 class Artists(View):
     def get(self, request):
         artists = Artist.objects.all()
