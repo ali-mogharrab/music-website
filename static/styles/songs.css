@@ -30,6 +30,7 @@
     display: inline-block;
     width: 290px;
     height: 345px;
+    color:rgb(196, 196, 196)
 }
 
 .songs .update_delete_song{
@@ -150,4 +151,63 @@
 .delete_form input:hover{
     background-color: rgb(148, 96, 0);
     color: black
+}
+
+/* comments */
+
+.comments{
+    text-align: center;
+    margin: 30px;
+    font-size: 23px;
+    padding: 20px;
+    color: rgb(196, 196, 196);
+}
+
+.comments a{
+    text-decoration: none;
+    color: rgb(196, 196, 196);
+}
+
+.comments .input{
+    width: 50%;
+    background-color: rgb(80, 80, 80);
+    color: rgb(212, 212, 212);
+    font-size: 16px;
+    padding: 8px 15px;
+    margin: 15px;
+    border-radius: 10px;
+}
+
+.comments input[type='submit']{
+    background-color: rgb(80, 80, 80);
+    color: white;
+    width: 90px;
+    height: 45px;
+    font-size: 14px;
+    border: none;
+    border-radius: 10px;
+}
+
+.comments input[type='submit']:hover{
+    background-color: rgb(54, 54, 54);
+}
+
+/* comments_list */
+
+.comments_list{
+    text-align: center;
+    margin: 30px;
+    font-size: 23px;
+    padding: 20px;
+    color: rgb(196, 196, 196);
+}
+
+.comments_list .single_comment{
+    width: 55%;
+    margin: auto;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    color: black;
+    background-color: rgb(174, 174, 174)
 }

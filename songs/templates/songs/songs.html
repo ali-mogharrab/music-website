@@ -11,14 +11,17 @@
 
     <div class="songs">
         {% for song in songs %}
-            <a href="{% url 'song' song.id %}">
-                <div class="song">
-                    <img src="{{ song.image.url }}" alt="song's cover">
-                    <br>
-                    <h3>{{song.name}}</h3>
-                    <br>
-                </div>
-            </a>
+            <div class="song_out">
+                <a href="{% url 'song' song.id %}">
+                    <div class="song">
+                        <img src="{{ song.image.url }}" alt="song's cover">
+                        <br>
+                        <h3>{{song.name}}</h3>
+                        <br>
+                    </div>
+                </a>
+                <p style="font-size: 18px;">{{song.vote_ratio}}% Postitive Feedback ({{song.vote_total}} Vote{{song.vote_total|pluralize:'s'}})</p>
+            </div>
         {% endfor %}
     </div>
 

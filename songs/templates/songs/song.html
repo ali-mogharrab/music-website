@@ -25,6 +25,48 @@
                     </audio>
                 </div>
             </div>
+
+            <div class="comments">
+                <h5>{{song.vote_ratio}}% Postitive Feedback ({{song.vote_total}} Vote{{song.vote_total|pluralize:'s'}})</h5>
+                <br>
+                {% if request.user.profile.id in song.reviewers %}
+                    <p>You have already submitted your review for this song</p>
+
+                {% elif request.user.is_authenticated %}
+                    <form action="{% url 'song' song.id %}" method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <label for="">{{field.label}}</label>
+                            <br>
+                            {{field}}
+                            <br>
+                        {% endfor %}
+
+                        {% for error in field.errors %}
+                            <p style="color: red;">{{error}}</p>
+                            <br>
+                        {% endfor %}
+
+                        <input type="submit" value="Submit">
+                    </form>
+
+                {% else %}
+                    <a href="{% url 'login' %}?next={{request.path}}">Please login in to leave a review</a>
+                {% endif %}
+            </div>
+
+            <div class="comments_list">
+                {% for review in song.review_set.all %}
+                    <div class="single_comment">
+                        <h4>{{ review.owner.user.first_name }}</h4>
+                        <p>{{ review.body }}</p>
+                        <br>
+                        <p style="font-size: 16px;">{{ review.created }}</p>
+                    </div>
+                    <br>
+                {% endfor %}
+            </div>
+
         </div>
     </div>
 

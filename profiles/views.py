@@ -9,6 +9,9 @@ from .forms import ArtistForm, CustomUserCreationForm, MessageForm, ProfileForm
 
 class LoginUser(View):
     def get(self, request):
+        global next_path
+        next_path = request.GET.get('next')
+
         if request.user.is_authenticated:
             return redirect('index')
 
@@ -28,7 +31,8 @@ class LoginUser(View):
         if user is not None:
             login(request, user)
             messages.success(request, 'User loged in successfully')
-            return redirect('index')
+            # if user wants to submit a review and hasn't loged in, first log in and then redirect to song page
+            return redirect(next_path if next_path else 'index')
 
         else:
             messages.error(request, 'Username or Password is incorrect!')

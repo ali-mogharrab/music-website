@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Album, Song, Review
+from .models import Album, Review, Song
 
 
 class SongForm(forms.ModelForm):

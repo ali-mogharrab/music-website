@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.views import View
 
-from .forms import AlbumForm, SongForm
+from .forms import AlbumForm, ReviewForm, SongForm
 from .models import Album, Artist, Song
 from .utils import Search, paginate_objects
 
@@ -31,8 +31,27 @@ class Songs(View):
 class GetSong(View):
     def get(self, request, pk):
         song = Song.objects.get(id=pk)
-        context = {'song': song}
+        form = ReviewForm()
+        context = {'song': song, 'form': form}
         return render(request, 'songs/song.html', context=context)
+
+    def post(self, request, pk):
+        song = Song.objects.get(id=pk)
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.song = song
+            review.owner = request.user.profile
+            review.save()
+
+            song.set_vote_count
+
+            messages.success(request, 'Vote added successfully')
+
+        else:
+            messages.error(request, 'An error occurred during adding vote')
+
+        return redirect('song', pk=pk)
 
 
 class MySongs(View):
@@ -88,7 +107,7 @@ class DeleteSong(View):
 
     def post(self, request, pk):
         song = Song.objects.get(id=pk)
-        if request.POST['delete'] == 'Yes':
+        if request.POST.get('delete') == 'Yes':
             song.delete()
             messages.success(request, 'Song deleted successfully')
 
@@ -177,7 +196,7 @@ class DeleteAlbum(View):
 
     def post(self, request, pk):
         album = Album.objects.get(id=pk)
-        if request.POST['delete'] == 'Yes':
+        if request.POST.get('delete') == 'Yes':
             album.delete()
             messages.success(request, 'Album deleted successfully')
 
