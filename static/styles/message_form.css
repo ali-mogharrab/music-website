@@ -28,6 +28,8 @@
     height: 170px;
     padding: 15px;
     margin: 15px;
+    border: none;
+    border-radius: 10px;
 }
 
 .contact_form input[type='submit']{
@@ -39,6 +41,9 @@
     position: absolute;
     bottom: 30px;
     left: 380px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 .contact_form input[type='submit']:hover{
