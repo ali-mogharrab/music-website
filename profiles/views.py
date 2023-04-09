@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.views import View
@@ -39,7 +40,9 @@ class LoginUser(View):
             return redirect('login')
 
 
-class LogoutUser(View):
+class LogoutUser(LoginRequiredMixin, View):
+    login_url = 'login'
+
     def get(self, request):
         logout(request)
         messages.info(request, 'User was logged out!')
@@ -71,7 +74,9 @@ class RegisterUser(View):
             return render(request, 'profiles/register.html', context=context)
 
 
-class EditProfile(View):
+class EditProfile(LoginRequiredMixin, View):
+    login_url = 'login'
+
     def get(self, request):
         profile = request.user.profile
         form = ProfileForm(instance=profile)
@@ -97,7 +102,9 @@ class EditProfile(View):
             return render(request, 'profiles/profile_form.html', context=context)
 
 
-class EditArtist(View):
+class EditArtist(LoginRequiredMixin, View):
+    login_url = 'login'
+
     def get(self, request):
         artist = request.user.profile.artist
         form = ArtistForm(instance=artist)
@@ -117,7 +124,9 @@ class EditArtist(View):
             return render(request, 'profiles/artist_form.html', context=context)
 
 
-class Contact(View):
+class Contact(LoginRequiredMixin, View):
+    login_url = 'login'
+
     def get(self, request):
         form = MessageForm()
         context = {'form': form}

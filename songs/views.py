@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from django.views import View
 
@@ -54,15 +55,23 @@ class GetSong(View):
         return redirect('song', pk=pk)
 
 
-class MySongs(View):
+class MySongs(LoginRequiredMixin, View):
+    login_url = 'login'
+
     def get(self, request):
-        artist = request.user.profile.artist
+        try:
+            artist = request.user.profile.artist
+        except:
+            return redirect('songs')
+
         songs = artist.song_set.all()
         context = {'songs': songs}
         return render(request, 'songs/my_songs.html', context=context)
 
 
-class UpdateSong(View):
+class UpdateSong(LoginRequiredMixin, View):
+    login_url = 'login'
+
     def get(self, request, pk):
         try:
             artist = request.user.profile.artist
@@ -99,7 +108,9 @@ class UpdateSong(View):
             return redirect('my_songs')
 
 
-class DeleteSong(View):
+class DeleteSong(LoginRequiredMixin, View):
+    login_url = 'login'
+
     def get(self, request, pk):
         song = Song.objects.get(id=pk)
         context = {'song': song}
@@ -158,15 +169,23 @@ class GetAlbum(View):
         return render(request, 'songs/album.html', context=context)
 
 
-class MyAlbums(View):
+class MyAlbums(LoginRequiredMixin, View):
+    login_url = 'login'
+
     def get(self, request):
-        artist = request.user.profile.artist
+        try:
+            artist = request.user.profile.artist
+        except:
+            return render('albums')
+
         albums = artist.album_set.all()
         context = {'albums': albums}
         return render(request, 'songs/my_albums.html', context=context)
 
 
-class UpdateAlbum(View):
+class UpdateAlbum(LoginRequiredMixin, View):
+    login_url = 'login'
+
     def get(self, request, pk):
         album = Album.objects.get(id=pk)
         form = AlbumForm(instance=album)
@@ -188,7 +207,9 @@ class UpdateAlbum(View):
             return redirect('my_albums')
 
 
-class DeleteAlbum(View):
+class DeleteAlbum(LoginRequiredMixin, View):
+    login_url = 'login'
+
     def get(self, request, pk):
         album = Album.objects.get(id=pk)
         context = {'album': album}
@@ -203,7 +224,9 @@ class DeleteAlbum(View):
         return redirect('my_albums')
 
 
-class CreateAlbum(View):
+class CreateAlbum(LoginRequiredMixin, View):
+    login_url = 'login'
+
     def get(self, request):
         form = AlbumForm()
         context = {'form': form}
@@ -229,7 +252,9 @@ class CreateAlbum(View):
             return redirect('create_album')
 
 
-class CreateSong(View):
+class CreateSong(LoginRequiredMixin, View):
+    login_url = 'login'
+
     def get(self, request):
         try:
             artist = request.user.profile.artist
