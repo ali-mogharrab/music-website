@@ -1,1 +1,3 @@
+django
 Pillow==9.4.0
+djangorestframework==3.14.0
