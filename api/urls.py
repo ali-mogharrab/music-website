@@ -7,4 +7,6 @@ urlpatterns = [
     path('logout/', views.Logout.as_view(), name='api-logout'),
     path('users/', views.Users.as_view(), name='api-users'),
     path('user/<str:pk>/', views.GetUser.as_view(), name='api-user'),
+    path('songs/', views.Songs.as_view(), name='api-songs'),
+    path('song/<str:pk>/', views.GetSong.as_view(), name='api-song'),
 ]
