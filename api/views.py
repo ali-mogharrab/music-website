@@ -6,10 +6,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from profiles.models import Profile
-from songs.models import Song
+from songs.models import Artist, Song
 
-from .permissions import IsArtistOrReadOnly, IsProfile, IsUser
-from .serializers import ProfileSerializer, SongSerializer, UserSerializer
+from .permissions import IsArtist, IsArtistOrReadOnly, IsProfile, IsUser
+from .serializers import (ArtistSerializer, ProfileSerializer, SongSerializer,
+                          UserSerializer)
 
 
 class Logout(APIView):
@@ -123,6 +124,43 @@ class GetProfile(APIView):
             return Response(data=message)
 
         return Response(data=profile_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# ////////////////////////////////////////////////////////////
+
+class Artists(APIView):
+
+    def get(self, request):
+        artists = Artist.objects.all()
+        artist_serailizer = ArtistSerializer(instance=artists, many=True)
+        return Response(data=artist_serailizer.data)
+
+
+class GetArtist(APIView):
+    permission_classes = (IsAuthenticated, IsArtist)
+
+    def get_artist(self, pk):
+        try:
+            artist = Artist.objects.get(id=pk)
+            return artist
+        except Artist.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        artist = self.get_artist(pk)
+        self.check_object_permissions(request, artist)
+        artist_serializer = ArtistSerializer(instance=artist)
+        return Response(data=artist_serializer.data)
+
+    def put(self, request, pk):
+        artist = self.get_artist(pk)
+        self.check_object_permissions(request, artist)
+
+        artist_serializer = ArtistSerializer(instance=artist, data=request.data, partial=True)
+        if artist_serializer.is_valid():
+            artist_serializer.save()
+            return Response(data=artist_serializer.data)
+
+        return Response(data=artist_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # ////////////////////////////////////////////////////////////
 

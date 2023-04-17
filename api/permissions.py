@@ -17,6 +17,14 @@ class IsProfile(BasePermission):
             return False
 
 
+class IsArtist(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        try:
+            return obj == request.user.profile.artist
+        except:
+            return False
+
+
 class IsArtistOrReadOnly(BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in SAFE_METHODS:

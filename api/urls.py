@@ -9,6 +9,8 @@ urlpatterns = [
     path('user/<str:pk>/', views.GetUser.as_view(), name='api-user'),
     path('profiles/', views.Profiles.as_view(), name='api-profiles'),
     path('profile/<str:pk>/', views.GetProfile.as_view(), name='api-profile'),
+    path('artists/', views.Artists.as_view(), name='api-artists'),
+    path('artist/<str:pk>/', views.GetArtist.as_view(), name='api-artist'),
     path('songs/', views.Songs.as_view(), name='api-songs'),
     path('song/<str:pk>/', views.GetSong.as_view(), name='api-song'),
 ]

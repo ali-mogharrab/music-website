@@ -50,7 +50,7 @@ class MessageForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(MessageForm, self).__init__(*args, **kwargs)
-        
+
         for name, field in self.fields.items():
             if name == 'body':
                 field.widget.attrs.update({'class': 'message_input'})
