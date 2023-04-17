@@ -5,10 +5,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from profiles.models import Profile
 from songs.models import Song
 
-from .permissions import IsArtistOrReadOnly, IsUserOrReadOnly
-from .serializers import SongSerializer, UserSerializer
+from .permissions import IsArtistOrReadOnly, IsProfile, IsUser
+from .serializers import ProfileSerializer, SongSerializer, UserSerializer
 
 
 class Logout(APIView):
@@ -35,7 +36,7 @@ class Users(APIView):
                 'message': 'User created successfully',
                 'id': user.id,
                 # send PUT request because profile has been created by profiles/signals.py
-                'send PUT request to update profile': request.META['HTTP_HOST'] + '/api/profile/',
+                'send PUT request to update profile': f"{request.META['HTTP_HOST']}/api/profile/{user.profile.id}/",
             }
             return Response(data=message, status=status.HTTP_201_CREATED)
 
@@ -43,7 +44,7 @@ class Users(APIView):
 
 
 class GetUser(APIView):
-    permission_classes = (IsAuthenticated, IsUserOrReadOnly)
+    permission_classes = (IsAuthenticated, IsUser)
 
     def get_user(self, pk):
         try:
@@ -74,6 +75,54 @@ class GetUser(APIView):
         self.check_object_permissions(request, user)
         user.delete()
         return Response(data={'message': 'User deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+
+# ////////////////////////////////////////////////////////////
+
+class Profiles(APIView):
+
+    def get(self, request):
+        profiles = Profile.objects.all()
+        profile_serializer = ProfileSerializer(instance=profiles, many=True)
+        return Response(data=profile_serializer.data)
+
+
+class GetProfile(APIView):
+    permission_classes = (IsAuthenticated, IsProfile)
+
+    def get_profile(self, pk):
+        try:
+            profile = Profile.objects.get(id=pk)
+            return profile
+        except Profile.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        profile = self.get_profile(pk)
+        self.check_object_permissions(request, profile)
+        profile_serializer = ProfileSerializer(instance=profile)
+        return Response(data=profile_serializer.data)
+
+    def put(self, request, pk):
+        profile = self.get_profile(pk)
+        self.check_object_permissions(request, profile)
+
+        profile_serializer = ProfileSerializer(instance=profile, data=request.data, partial=True)
+        if profile_serializer.is_valid():
+            profile = profile_serializer.save()
+
+            if profile.is_artist:
+                message = {
+                    'message': 'Profile updated successfully',
+                    'id': profile.id,
+                    # send PUT request because artist has been created by profiles/signals.py
+                    'send PUT request to update artist': f"{request.META['HTTP_HOST']}/api/artist/{profile.artist.id}/",
+                }
+            else:
+                message = profile_serializer.data
+
+            return Response(data=message)
+
+        return Response(data=profile_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # ////////////////////////////////////////////////////////////
 

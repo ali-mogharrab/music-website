@@ -3,6 +3,7 @@ from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
+from profiles.models import Profile
 from songs.models import Song
 
 
@@ -46,6 +47,20 @@ class UserSerializer(serializers.ModelSerializer):
         # if user sent  password to update
         if 'password1' in validated_data:
             instance.set_password(validated_data['password1'])
+        instance.save()
+        return instance
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['user', 'age', 'gender', 'phone', 'is_artist']
+
+    def update(self, instance, validated_data):
+        instance.age = validated_data.get('age', instance.age)
+        instance.gender = validated_data.get('gender', instance.gender)
+        instance.phone = validated_data.get('phone', instance.phone)
+        instance.is_artist = validated_data.get('is_artist', instance.is_artist)
         instance.save()
         return instance
 
