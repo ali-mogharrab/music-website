@@ -6,11 +6,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from profiles.models import Profile
-from songs.models import Artist, Song
+from songs.models import Album, Artist, Song
 
 from .permissions import IsArtist, IsArtistOrReadOnly, IsProfile, IsUser
-from .serializers import (ArtistSerializer, ProfileSerializer, SongSerializer,
-                          UserSerializer)
+from .serializers import (AlbumSerializer, ArtistSerializer, ProfileSerializer,
+                          SongSerializer, UserSerializer)
 
 
 class Logout(APIView):
@@ -211,3 +211,53 @@ class GetSong(APIView):
         self.check_object_permissions(request, song)
         song.delete()
         return Response(data={'message': 'Song deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+
+# ////////////////////////////////////////////////////////////
+
+class Albums(APIView):
+
+    def get(self, request):
+        albums = Album.objects.all()
+        album_serializer = AlbumSerializer(instance=albums, many=True)
+        return Response(data=album_serializer.data)
+
+    def post(self, request):
+        album_serializer = AlbumSerializer(data=request.data)
+        if album_serializer.is_valid():
+            album_serializer.save()
+            return Response(data={'message': 'Album created successfully'}, status=status.HTTP_201_CREATED)
+
+        return Response(data=album_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class GetAlbum(APIView):
+    permission_classes = (IsAuthenticated, IsArtistOrReadOnly)
+
+    def get_album(self, pk):
+        try:
+            album = Album.objects.get(id=pk)
+            return album
+        except Album.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        album = self.get_album(pk)
+        album_serializer = AlbumSerializer(instance=album)
+        return Response(data=album_serializer.data)
+
+    def put(self, request, pk):
+        album = self.get_album(pk)
+        self.check_object_permissions(request, album)
+
+        album_serializer = AlbumSerializer(instance=album, data=request.data, partial=True)
+        if album_serializer.is_valid():
+            album_serializer.save()
+            return Response(data=album_serializer.data)
+
+        return Response(data=album_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        album = self.get_album(pk)
+        self.check_object_permissions(request, album)
+        album.delete()
+        return Response(data={'message': 'Album deleted successfully'}, status=status.HTTP_204_NO_CONTENT)

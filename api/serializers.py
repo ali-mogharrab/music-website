@@ -4,7 +4,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
 from profiles.models import Profile
-from songs.models import Artist, Song
+from songs.models import Album, Artist, Song
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -86,12 +86,35 @@ class SongSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         artist = validated_data.pop('artist', None)
         song = Song.objects.create(**validated_data)
+        # artist is many to many field
         song.artist.set(artist)
+        song.save()
         return song
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
         instance.album = validated_data.get('album', instance.album)
+        instance.artist.set(validated_data.get('artist', instance.artist))
+        instance.save()
+        return instance
+
+# ////////////////////////////////////////////////////////////
+
+class AlbumSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Album
+        fields = ['name', 'artist']
+
+    def create(self, validated_data):
+        artist = validated_data.pop('artist', None)
+        album = Album.objects.create(**validated_data)
+        # artist is many to many field
+        album.artist.set(artist)
+        album.save()
+        return album
+
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get('name', instance.name)
         instance.artist.set(validated_data.get('artist', instance.artist))
         instance.save()
         return instance

@@ -13,4 +13,6 @@ urlpatterns = [
     path('artist/<str:pk>/', views.GetArtist.as_view(), name='api-artist'),
     path('songs/', views.Songs.as_view(), name='api-songs'),
     path('song/<str:pk>/', views.GetSong.as_view(), name='api-song'),
+    path('albums/', views.Albums.as_view(), name='api-albums'),
+    path('album/<str:pk>/', views.GetAlbum.as_view(), name='api-album'),
 ]
