@@ -15,4 +15,6 @@ urlpatterns = [
     path('song/<str:pk>/', views.GetSong.as_view(), name='api-song'),
     path('albums/', views.Albums.as_view(), name='api-albums'),
     path('album/<str:pk>/', views.GetAlbum.as_view(), name='api-album'),
+    path('messages/', views.Messages.as_view(), name='api-messages'),
+    path('message/<str:pk>/', views.GetMessage.as_view(), name='api-message'),
 ]

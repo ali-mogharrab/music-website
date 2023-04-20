@@ -3,7 +3,7 @@ from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
-from profiles.models import Profile
+from profiles.models import Message, Profile
 from songs.models import Album, Artist, Song
 
 
@@ -116,5 +116,25 @@ class AlbumSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
         instance.artist.set(validated_data.get('artist', instance.artist))
+        instance.save()
+        return instance
+
+# ////////////////////////////////////////////////////////////
+
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = ['sender', 'email', 'subject', 'body', 'is_read']
+
+    def create(self, validated_data):
+        message = Message.objects.create(**validated_data)
+        return message
+
+    def update(self, instance, validated_data):
+        instance.sender = validated_data.get('sender', instance.sender)
+        instance.email = validated_data.get('email', instance.email)
+        instance.subject = validated_data.get('subject', instance.subject)
+        instance.body = validated_data.get('body', instance.body)
+        instance.is_read = validated_data.get('is_read', instance.is_read)
         instance.save()
         return instance

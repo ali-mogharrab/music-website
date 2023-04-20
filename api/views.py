@@ -5,12 +5,12 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from profiles.models import Profile
+from profiles.models import Message, Profile
 from songs.models import Album, Artist, Song
 
 from .permissions import IsArtist, IsArtistOrReadOnly, IsProfile, IsUser
-from .serializers import (AlbumSerializer, ArtistSerializer, ProfileSerializer,
-                          SongSerializer, UserSerializer)
+from .serializers import (AlbumSerializer, ArtistSerializer, MessageSerializer,
+                          ProfileSerializer, SongSerializer, UserSerializer)
 
 
 class Logout(APIView):
@@ -261,3 +261,53 @@ class GetAlbum(APIView):
         self.check_object_permissions(request, album)
         album.delete()
         return Response(data={'message': 'Album deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+
+# ////////////////////////////////////////////////////////////
+
+class Messages(APIView):
+
+    def get(self, request):
+        messages = Message.objects.all()
+        message_serializer = MessageSerializer(instance=messages, many=True)
+        return Response(data=message_serializer.data)
+
+    def post(self, request):
+        message_serializer = MessageSerializer(data=request.data)
+        if message_serializer.is_valid():
+            message_serializer.save()
+            return Response(data={'message': 'Message created successfully'}, status=status.HTTP_201_CREATED)
+
+        return Response(data=message_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class GetMessage(APIView):
+    permission_classes = (IsAuthenticated, IsProfile)
+
+    def get_message(self, pk):
+        try:
+            message = Message.objects.get(id=pk)
+            return message
+        except Message.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        message = self.get_message(pk)
+        message_serializer = MessageSerializer(instance=message)
+        return Response(data=message_serializer.data)
+
+    def put(self, request, pk):
+        message = self.get_message(pk)
+        self.check_object_permissions(request, obj=message.sender)
+
+        message_serializer = MessageSerializer(instance=message, data=request.data, partial=True)
+        if message_serializer.is_valid():
+            message_serializer.save()
+            return Response(data=message_serializer.data)
+
+        return Response(data=message_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        message = self.get_message(pk)
+        self.check_object_permissions(request, obj=message.sender)
+        message.delete()
+        return Response(data='Message deleted successfully', status=status.HTTP_204_NO_CONTENT)
