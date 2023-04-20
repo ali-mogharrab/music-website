@@ -6,11 +6,12 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from profiles.models import Message, Profile
-from songs.models import Album, Artist, Song
+from songs.models import Album, Artist, Review, Song
 
 from .permissions import IsArtist, IsArtistOrReadOnly, IsProfile, IsUser
 from .serializers import (AlbumSerializer, ArtistSerializer, MessageSerializer,
-                          ProfileSerializer, SongSerializer, UserSerializer)
+                          ProfileSerializer, ReviewSerializer, SongSerializer,
+                          UserSerializer)
 
 
 class Logout(APIView):
@@ -311,3 +312,53 @@ class GetMessage(APIView):
         self.check_object_permissions(request, obj=message.sender)
         message.delete()
         return Response(data='Message deleted successfully', status=status.HTTP_204_NO_CONTENT)
+
+# ////////////////////////////////////////////////////////////
+
+class Reviews(APIView):
+
+    def get(self, request):
+        reviews = Review.objects.all()
+        review_serializer = ReviewSerializer(instance=reviews, many=True)
+        return Response(data=review_serializer.data)
+
+    def post(self, request):
+        review_serializer = ReviewSerializer(data=request.data)
+        if review_serializer.is_valid():
+            review_serializer.save()
+            return Response(data={'message': 'Review created successfully'}, status=status.HTTP_201_CREATED)
+
+        return Response(data=review_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class GetReview(APIView):
+    permission_classes = (IsAuthenticated, IsProfile)
+
+    def get_review(self, pk):
+        try:
+            review = Review.objects.get(id=pk)
+            return review
+        except Review.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        review = self.get_review(pk)
+        review_serializer = ReviewSerializer(instance=review)
+        return Response(data=review_serializer.data)
+
+    def put(self, request, pk):
+        review = self.get_review(pk)
+        self.check_object_permissions(request, obj=review.owner)
+
+        review_serializer = ReviewSerializer(instance=review, data=request.data, partial=True)
+        if review_serializer.is_valid():
+            review_serializer.save()
+            return Response(data=review_serializer.data)
+
+        return Response(data=review_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        review = self.get_review(pk)
+        self.check_object_permissions(request, obj=review.owner)
+        review.delete()
+        return Response(data={'message': 'Review deleted successfully'}, status=status.HTTP_204_NO_CONTENT)

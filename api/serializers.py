@@ -4,7 +4,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
 from profiles.models import Message, Profile
-from songs.models import Album, Artist, Song
+from songs.models import Album, Artist, Review, Song
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -136,5 +136,24 @@ class MessageSerializer(serializers.ModelSerializer):
         instance.subject = validated_data.get('subject', instance.subject)
         instance.body = validated_data.get('body', instance.body)
         instance.is_read = validated_data.get('is_read', instance.is_read)
+        instance.save()
+        return instance
+
+# ////////////////////////////////////////////////////////////
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ['owner', 'song', 'value', 'body']
+
+    def create(self, validated_data):
+        review = Review.objects.create(**validated_data)
+        return review
+
+    def update(self, instance, validated_data):
+        instance.owner = validated_data.get('owner', instance.owner)
+        instance.song = validated_data.get('song', instance.song)
+        instance.value = validated_data.get('value', instance.value)
+        instance.body = validated_data.get('body', instance.body)
         instance.save()
         return instance
