@@ -23,7 +23,7 @@ class Songs(View):
     def get(self, request):
         songs = Song.objects.all()
 
-        songs, custom_range = paginate_objects(request, songs, 5)
+        songs, custom_range = paginate_objects(request, songs, 8)
 
         context = {'songs': songs, 'custom_range': custom_range}
         return render(request, 'songs/songs.html', context=context)
@@ -129,7 +129,7 @@ class Artists(View):
     def get(self, request):
         artists = Artist.objects.all()
 
-        artists, custom_range = paginate_objects(request, artists, 5)
+        artists, custom_range = paginate_objects(request, artists, 8)
 
         context = {'artists': artists, 'custom_range': custom_range}
         return render(request, 'songs/artists.html', context=context)
@@ -151,7 +151,7 @@ class Albums(View):
     def get(self, request):
         albums = Album.objects.all()
 
-        albums, custom_range = paginate_objects(request, albums, 5)
+        albums, custom_range = paginate_objects(request, albums, 8)
 
         context = {'albums': albums, 'custom_range': custom_range}
         return render(request, 'songs/albums.html', context=context)
