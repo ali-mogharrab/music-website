@@ -14,6 +14,17 @@ class Artist(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
 
+    class Meta:
+        ordering = ['-created']
+
+    @property
+    def imageurl(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url
+
     def __str__(self):
         return str(self.nickname)
 
@@ -25,6 +36,17 @@ class Album(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
+
+    class Meta:
+            ordering = ['-created']
+
+    @property
+    def imageurl(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url
 
     def __str__(self):
         return str(self.name)
@@ -44,6 +66,14 @@ class Song(models.Model):
 
     class Meta:
         ordering = ['-vote_ratio', '-vote_total', 'name']
+
+    @property
+    def imageurl(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url
 
     @property
     def reviewers(self):
@@ -81,6 +111,7 @@ class Review(models.Model):
 
     class Meta:
         unique_together = [['owner', 'song']]
+        ordering = ['-created']
 
     def __str__(self):
         return self.value
