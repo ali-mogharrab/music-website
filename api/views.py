@@ -325,7 +325,10 @@ class Reviews(APIView):
     def post(self, request):
         review_serializer = ReviewSerializer(data=request.data)
         if review_serializer.is_valid():
-            review_serializer.save()
+            review = review_serializer.save()
+
+            review.song.set_vote_count
+
             return Response(data={'message': 'Review created successfully'}, status=status.HTTP_201_CREATED)
 
         return Response(data=review_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -352,7 +355,10 @@ class GetReview(APIView):
 
         review_serializer = ReviewSerializer(instance=review, data=request.data, partial=True)
         if review_serializer.is_valid():
-            review_serializer.save()
+            review = review_serializer.save()
+
+            review.song.set_vote_count
+
             return Response(data=review_serializer.data)
 
         return Response(data=review_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -360,5 +366,8 @@ class GetReview(APIView):
     def delete(self, request, pk):
         review = self.get_review(pk)
         self.check_object_permissions(request, obj=review.owner)
+
+        review.song.set_vote_count
+
         review.delete()
         return Response(data={'message': 'Review deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
