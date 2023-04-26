@@ -67,7 +67,10 @@
 }
 
 .song img{
+    object-fit: cover;
     width: 97%;
+    height: 89%;
+    border-radius: 5px;
 }
 
 .song h3{
@@ -100,6 +103,8 @@
     font-size: 16px;
     padding: 8px 15px;
     margin: 15px;
+    border: none;
+    border-radius: 10px;
 }
 
 .song_form input[type='submit']{
@@ -111,6 +116,8 @@
     position: absolute;
     bottom: 30px;
     left: 280px;
+    border: none;
+    border-radius: 10px;
 }
 
 .song_form input[type='submit']:hover{

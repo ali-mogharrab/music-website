@@ -5,7 +5,7 @@
 {% block content %}
 
     <div class="artist_page">
-        <img src="{{ artist.image.url }}" alt="artist's image">
+        <img src="{{ artist.imageurl }}" alt="artist's image">
         <h1>{{ artist.nickname }}</h1>
     </div>
 
@@ -24,7 +24,7 @@
             {% for album in albums %}
                 <a href="{% url 'album' album.id %}">
                     <div class="album">
-                        <img src="{{ album.image.url }}" alt="album's cover">
+                        <img src="{{ album.imageurl }}" alt="album's cover">
                         <h3>{{album.name}}</h3>
                         <br>
                     </div>
@@ -37,7 +37,7 @@
             {% for song in songs %}
                 <a href="{% url 'song' song.id %}">
                     <div class="song">
-                        <img src="{{ song.image.url }}" alt="song's cover">
+                        <img src="{{ song.imageurl }}" alt="song's cover">
                         <br>
                         <h3>{{song.name}}</h3>
                         <br>

@@ -17,7 +17,10 @@
 }
 
 .artist img{
+    object-fit: cover;
     width: 97%;
+    height: 89%;
+    border-radius: 5px;
 }
 
 .artist h3{
@@ -39,9 +42,12 @@
 }
 
 .artist_page img{
-    border-radius: 10px;
     border: solid 2px rgb(93, 77, 68);
     margin-bottom: 10px;
+    object-fit: cover;
+    width: 220px;
+    height: 230px;
+    border-radius: 5px;
 }
 
 .artist_page_list ul{

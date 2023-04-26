@@ -24,34 +24,43 @@
     <div class="objects">
         {% for object in objects %}
             {% if object|get_type == 'Song' %}
-                <a href="{% url 'song' object.id %}">
-                    <div class="object">
-                        <img src="{{ object.image.url }}" alt="song's cover">
-                        <br>
-                        <h3>{{object.name}}</h3>
-                        <br>
-                    </div>
-                </a>
+                <div class="object_out">
+                    <a href="{% url 'song' object.id %}">
+                        <div class="object">
+                            <img src="{{ object.imageurl }}" alt="song's cover">
+                            <br>
+                            <h3>{{object.name}}</h3>
+                            <br>
+                        </div>
+                    </a>
+                    <p style="font-size: 18px;">{{object.vote_ratio}}% Postitive Feedback ({{object.vote_total}} Vote{{object.vote_total|pluralize:'s'}})</p>
+                </div>
 
             {% elif object|get_type == 'Artist' %}
-                <a href="{% url 'artist' object.id %}">
-                    <div class="object">
-                        <img src="{{ object.image.url }}" alt="artist's cover">
-                        <br>
-                        <h3>{{object.nickname}}</h3>
-                        <br>
-                    </div>
-                </a>
+                <div class="object_out">
+                    <a href="{% url 'artist' object.id %}">
+                        <div class="object">
+                            <img src="{{ object.imageurl }}" alt="artist's cover">
+                            <br>
+                            <h3>{{object.nickname}}</h3>
+                            <br>
+                        </div>
+                    </a>
+                    <p style="visibility: hidden;">none</p>
+                </div>
 
             {% elif object|get_type == 'Album' %}
-                <a href="{% url 'album' object.id %}">
-                    <div class="object">
-                        <img src="{{ object.image.url }}" alt="album's cover">
-                        <br>
-                        <h3>{{object.name}}</h3>
-                        <br>
-                    </div>
-                </a>
+                <div class="object_out">
+                    <a href="{% url 'album' object.id %}">
+                        <div class="object">
+                            <img src="{{ object.imageurl }}" alt="album's cover">
+                            <br>
+                            <h3>{{object.name}}</h3>
+                            <br>
+                        </div>
+                    </a>
+                    <p style="visibility: hidden;">none</p>
+                </div>
 
             {% endif %}
         {% endfor %}

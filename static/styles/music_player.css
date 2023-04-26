@@ -42,8 +42,11 @@ h3 {
     top: 8%;
     left: 14%;
     width: 70%;
+    height: 49%;
     margin: auto;
     text-align: center;
+    object-fit: cover;
+    border-radius: 5px;
 }
 .titre {
     float: left;

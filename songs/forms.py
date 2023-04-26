@@ -10,7 +10,7 @@ class SongForm(forms.ModelForm):
 
     album = forms.ModelChoiceField(
         queryset=Album.objects.all(),
-        required=True,
+        required=False,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 

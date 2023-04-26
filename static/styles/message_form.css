@@ -18,6 +18,8 @@
     height: 20px;
     padding: 15px;
     margin: 15px;
+    border: none;
+    border-radius: 10px;
 }
 
 .contact_form_input .message_input{

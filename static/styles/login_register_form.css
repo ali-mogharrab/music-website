@@ -20,6 +20,7 @@
     height: 20px;
     padding: 18px;
     margin: 17px;
+    border-radius: 10px;
 }
 
 .login_form input[type='submit']{
@@ -31,6 +32,8 @@
     position: absolute;
     top: 250px;
     left: 57px;
+    border: none;
+    border-radius: 10px;
 }
 
 .login_form input[type='submit']:hover{
@@ -75,6 +78,10 @@
     height: 20px;
     padding: 15px;
     margin: 15px;
+    border: none;
+    border-radius: 10px;
+    border: none;
+    border-radius: 10px;
 }
 
 .register_form input[type='submit']{
@@ -86,6 +93,8 @@
     position: absolute;
     bottom: 30px;
     left: 280px;
+    border: none;
+    border-radius: 10px;
 }
 
 .register_form input[type='submit']:hover{
@@ -113,6 +122,8 @@
     font-size: 16px;
     padding: 8px 15px;
     margin: 15px;
+    border: none;
+    border-radius: 10px;
 }
 
 .profile_form input[type='submit']{
@@ -124,6 +135,8 @@
     position: absolute;
     bottom: 30px;
     left: 280px;
+    border: none;
+    border-radius: 10px;
 }
 
 .profile_form input[type='submit']:hover{
@@ -151,6 +164,8 @@
     font-size: 16px;
     padding: 8px 15px;
     margin: 15px;
+    border: none;
+    border-radius: 10px;
 }
 
 .artist_form input[type='submit']{
@@ -162,6 +177,8 @@
     position: absolute;
     bottom: 30px;
     left: 280px;
+    border: none;
+    border-radius: 10px;
 }
 
 .artist_form input[type='submit']:hover{

@@ -8,7 +8,7 @@
         {% for artist in artists %}
             <a href="{% url 'artist' artist.id %}">
                 <div class="artist">
-                    <img src="{{ artist.image.url }}" alt="artist's image">
+                    <img src="{{ artist.imageurl }}" alt="artist's image">
                     <h3>{{artist.nickname}}</h3>
                     <br>
                 </div>

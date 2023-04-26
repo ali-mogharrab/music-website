@@ -5,10 +5,11 @@
 }
 
 body{
-    background-color: rgb(43,43,43);
+    min-height: 100vh;
+    /* background-color: rgb(43,43,43); */
     /* background: transparent linear-gradient(to bottom, rgb(56, 40, 17, 0.9) 50%, rgb(22, 17, 17) 70%) repeat scroll 0 0; */
-    /* background-color: rgb(108, 108, 108); */
     /* background: transparent linear-gradient(to bottom, rgb(22, 17, 17) 0, rgb(56, 40, 17, 0.9) 50%) repeat scroll 0 0; */
+    background-color: rgb(30,30,30);
     background-image: url('../images/main.jpg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -83,6 +84,13 @@ body{
     margin: 30px;
 }
 
+.objects .object_out{
+    display: inline-block;
+    width: 290px;
+    height: 345px;
+    color:rgb(196, 196, 196)
+}
+
 .object{
     display: inline-block;
     width: 270px;
@@ -97,7 +105,10 @@ body{
 }
 
 .object img{
+    object-fit: cover;
     width: 97%;
+    height: 89%;
+    border-radius: 5px;
 }
 
 .object h3{

@@ -8,7 +8,7 @@
         <div class="container">
             <div class="music-player">
                 <div class="cover">
-                    <img src="{{ song.image.url }}" alt="song's cover" />
+                    <img src="{{ song.imageurl }}" alt="song's cover" />
                 </div>
                 <div class="titre">
                     {% for artist in song.artist.all %}
@@ -59,6 +59,7 @@
                 {% for review in song.review_set.all %}
                     <div class="single_comment">
                         <h4>{{ review.owner.user.first_name }}</h4>
+                        <h5>{{ review.value|title }} vote</h5>
                         <p>{{ review.body }}</p>
                         <br>
                         <p style="font-size: 16px;">{{ review.created }}</p>
