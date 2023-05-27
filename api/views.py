@@ -132,7 +132,7 @@ class Artists(APIView):
 
     def get(self, request):
         artists = Artist.objects.all()
-        artist_serailizer = ArtistSerializer(instance=artists, many=True)
+        artist_serailizer = ArtistSerializer(instance=artists, many=True, context={'request': request})
         return Response(data=artist_serailizer.data)
 
 
@@ -149,14 +149,14 @@ class GetArtist(APIView):
     def get(self, request, pk):
         artist = self.get_artist(pk)
         self.check_object_permissions(request, artist)
-        artist_serializer = ArtistSerializer(instance=artist)
+        artist_serializer = ArtistSerializer(instance=artist, context={'request': request})
         return Response(data=artist_serializer.data)
 
     def put(self, request, pk):
         artist = self.get_artist(pk)
         self.check_object_permissions(request, artist)
 
-        artist_serializer = ArtistSerializer(instance=artist, data=request.data, partial=True)
+        artist_serializer = ArtistSerializer(instance=artist, data=request.data, partial=True, context={'request': request})
         if artist_serializer.is_valid():
             artist_serializer.save()
             return Response(data=artist_serializer.data)
@@ -169,11 +169,11 @@ class Songs(APIView):
 
     def get(self, request):
         songs = Song.objects.all()
-        song_serializer = SongSerializer(instance=songs, many=True)
+        song_serializer = SongSerializer(instance=songs, many=True, context={'request': request})
         return Response(data=song_serializer.data)
 
     def post(self, request):
-        song_serializer = SongSerializer(data=request.data)
+        song_serializer = SongSerializer(data=request.data, context={'request': request})
         if song_serializer.is_valid():
             song_serializer.save()
             return Response(data={'message': 'Song added successfully'}, status=status.HTTP_201_CREATED)
@@ -193,14 +193,14 @@ class GetSong(APIView):
 
     def get(self, request, pk):
         song = self.get_song(pk)
-        song_serializer = SongSerializer(instance=song)
+        song_serializer = SongSerializer(instance=song, context={'request': request})
         return Response(data=song_serializer.data)
 
     def put(self, request, pk):
         song = self.get_song(pk)
         self.check_object_permissions(request, song)
 
-        song_serializer = SongSerializer(instance=song, data=request.data, partial=True)
+        song_serializer = SongSerializer(instance=song, data=request.data, partial=True, context={'request': request})
         if song_serializer.is_valid():
             song_serializer.save()
             return Response(data=song_serializer.data)
@@ -219,11 +219,11 @@ class Albums(APIView):
 
     def get(self, request):
         albums = Album.objects.all()
-        album_serializer = AlbumSerializer(instance=albums, many=True)
+        album_serializer = AlbumSerializer(instance=albums, many=True, context={'request': request})
         return Response(data=album_serializer.data)
 
     def post(self, request):
-        album_serializer = AlbumSerializer(data=request.data)
+        album_serializer = AlbumSerializer(data=request.data, context={'request': request})
         if album_serializer.is_valid():
             album_serializer.save()
             return Response(data={'message': 'Album created successfully'}, status=status.HTTP_201_CREATED)
@@ -243,14 +243,14 @@ class GetAlbum(APIView):
 
     def get(self, request, pk):
         album = self.get_album(pk)
-        album_serializer = AlbumSerializer(instance=album)
+        album_serializer = AlbumSerializer(instance=album, context={'request': request})
         return Response(data=album_serializer.data)
 
     def put(self, request, pk):
         album = self.get_album(pk)
         self.check_object_permissions(request, album)
 
-        album_serializer = AlbumSerializer(instance=album, data=request.data, partial=True)
+        album_serializer = AlbumSerializer(instance=album, data=request.data, partial=True, context={'request': request})
         if album_serializer.is_valid():
             album_serializer.save()
             return Response(data=album_serializer.data)

@@ -66,19 +66,47 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class ArtistSerializer(serializers.ModelSerializer):
+    album_set = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=False,
+        queryset=Album.objects.all(),
+        view_name="api-album",
+    )
+    song_set = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=False,
+        queryset=Song.objects.all(),
+        view_name="api-song",
+    )
+
     class Meta:
         model = Artist
-        fields = ['id', 'nickname', 'bio']
+        fields = ['id', 'nickname', 'bio', 'album_set', 'song_set']
 
     def update(self, instance, validated_data):
         instance.nickname = validated_data.get('nickname', instance.nickname)
         instance.bio = validated_data.get('bio', instance.bio)
+        instance.album_set.set(validated_data.get('album_set', instance.album_set))
+        instance.song_set.set(validated_data.get('song_set', instance.song_set))
         instance.save()
         return instance
 
 # ////////////////////////////////////////////////////////////
 
 class SongSerializer(serializers.ModelSerializer):
+    album = serializers.HyperlinkedRelatedField(
+        many=False,
+        read_only=False,
+        queryset=Album.objects.all(),
+        view_name="api-album",
+    )
+    artist = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=False,
+        queryset=Artist.objects.all(),
+        view_name="api-artist",
+    )
+
     class Meta:
         model = Song
         fields = ['name', 'album', 'artist']
@@ -101,21 +129,37 @@ class SongSerializer(serializers.ModelSerializer):
 # ////////////////////////////////////////////////////////////
 
 class AlbumSerializer(serializers.ModelSerializer):
+    artist = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=False,
+        queryset=Artist.objects.all(),
+        view_name="api-artist",
+    )
+    song_set = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=False,
+        queryset=Song.objects.all(),
+        view_name="api-song",
+    )
+
     class Meta:
         model = Album
-        fields = ['name', 'artist']
+        fields = ['name', 'artist', 'song_set']
 
     def create(self, validated_data):
         artist = validated_data.pop('artist', None)
+        song = validated_data.pop('song_set', None)
         album = Album.objects.create(**validated_data)
         # artist is many to many field
         album.artist.set(artist)
+        album.song_set.set(song)
         album.save()
         return album
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
         instance.artist.set(validated_data.get('artist', instance.artist))
+        instance.song_set.set(validated_data.get('song_set', instance.song_set))
         instance.save()
         return instance
 
