@@ -34,5 +34,8 @@ A website for sharing music
 # Contact Page
 <img src="./resources/images/contact_page.png">
 
+# Getting Artists by sending a GET request
+<img src="./resources/images/artists.png">
+
 # Updating a Review by sending a PUT request
 <img src="./resources/images/review_api.png">
